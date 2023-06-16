@@ -1,0 +1,12 @@
+C:\Git\ApiCliente\ApiCliente.Data\bin\Debug\net6.0\ApiCliente.Data.deps.json
+C:\Git\ApiCliente\ApiCliente.Data\bin\Debug\net6.0\ApiCliente.Data.dll
+C:\Git\ApiCliente\ApiCliente.Data\bin\Debug\net6.0\ApiCliente.Data.pdb
+C:\Git\ApiCliente\ApiCliente.Data\obj\Debug\net6.0\ApiCliente.Data.csproj.AssemblyReference.cache
+C:\Git\ApiCliente\ApiCliente.Data\obj\Debug\net6.0\ApiCliente.Data.GeneratedMSBuildEditorConfig.editorconfig
+C:\Git\ApiCliente\ApiCliente.Data\obj\Debug\net6.0\ApiCliente.Data.AssemblyInfoInputs.cache
+C:\Git\ApiCliente\ApiCliente.Data\obj\Debug\net6.0\ApiCliente.Data.AssemblyInfo.cs
+C:\Git\ApiCliente\ApiCliente.Data\obj\Debug\net6.0\ApiCliente.Data.csproj.CoreCompileInputs.cache
+C:\Git\ApiCliente\ApiCliente.Data\obj\Debug\net6.0\ApiCliente.Data.dll
+C:\Git\ApiCliente\ApiCliente.Data\obj\Debug\net6.0\refint\ApiCliente.Data.dll
+C:\Git\ApiCliente\ApiCliente.Data\obj\Debug\net6.0\ApiCliente.Data.pdb
+C:\Git\ApiCliente\ApiCliente.Data\obj\Debug\net6.0\ref\ApiCliente.Data.dll
