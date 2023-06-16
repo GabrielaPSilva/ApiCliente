@@ -8,5 +8,8 @@ namespace ApiCliente.Model.Entities
 {
     public class TipoTelefoneModel
     {
+        public int Id { get; set; }
+        public string? Tipo { get; set; }
+        public bool Ativo { get; set; }
     }
 }

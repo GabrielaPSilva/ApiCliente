@@ -229,6 +229,16 @@
             "rid": "win"
           }
         }
+      },
+      "ApiCliente.Model/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "compile": {
+          "bin/placeholder/ApiCliente.Model.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/ApiCliente.Model.dll": {}
+        }
       }
     }
   },
@@ -671,10 +681,16 @@
         "useSharedDesignerContext.txt",
         "version.txt"
       ]
+    },
+    "ApiCliente.Model/1.0.0": {
+      "type": "project",
+      "path": "../ApiCliente.Model/ApiCliente.Model.csproj",
+      "msbuildProject": "../ApiCliente.Model/ApiCliente.Model.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net6.0": [
+      "ApiCliente.Model >= 1.0.0",
       "Dapper >= 2.0.138",
       "Microsoft.Extensions.Configuration.Abstractions >= 7.0.0",
       "Microsoft.Extensions.DependencyInjection.Abstractions >= 7.0.0",
@@ -707,7 +723,11 @@
       "frameworks": {
         "net6.0": {
           "targetAlias": "net6.0",
-          "projectReferences": {}
+          "projectReferences": {
+            "C:\\Git\\ApiCliente\\ApiCliente.Model\\ApiCliente.Model.csproj": {
+              "projectPath": "C:\\Git\\ApiCliente\\ApiCliente.Model\\ApiCliente.Model.csproj"
+            }
+          }
         }
       },
       "warningProperties": {
