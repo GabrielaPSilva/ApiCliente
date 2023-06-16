@@ -12,29 +12,37 @@ namespace ApiCliente.Data.ConnectionFactory
 {
     public class ConnectionFactory
     {
-        IConfiguration _configuration;
+        private readonly static string? _serverAddress =
+            Environment.GetEnvironmentVariable("MYSQL_ADDRESS");
+        private readonly static string? _port =
+            Environment.GetEnvironmentVariable("MYSQL_PORT");
+        private readonly static string? _user =
+            Environment.GetEnvironmentVariable("MYSQL_USER");
+        private readonly static string? _password =
+            Environment.GetEnvironmentVariable("MYSQL_PASSWORD");
 
-        public ConnectionFactory(IConfiguration configuration)
+        private async Task<SqlConnection> GetConnectionDBAsync(string banco = "railway")
         {
-            _configuration = configuration;
-            DefaultTypeMap.MatchNamesWithUnderscores = true;
+            if (string.IsNullOrEmpty(_serverAddress)
+                || string.IsNullOrEmpty(_port)
+                || string.IsNullOrEmpty(_user)
+                || string.IsNullOrEmpty(_password))
+            {
+                throw new Exception("Configure as variáveis de ambiente \"MYSQL_ADDRESS\", \"MYSQL_PORT\", \"MYSQL_USER\" e \"MYSQL_PASSWORD\" e reinicie o Visual Studio");
+            }
+
+            string connectionString = $"Server={_serverAddress}; Port={_port}; Database={banco}; Uid={_user}; Pwd={_password};";
+
+            SqlConnection con = new SqlConnection(connectionString);
+
+            await con.OpenAsync();
+
+            return con;
         }
 
-        public string GetConnectionDBCliente()
+        public static async Task<IDbConnection> ConnectionDBAsync(string banco)
         {
-            var connection = _configuration.GetSection("ConnectionStrings").GetSection("ContextDBCliente").Value;
-            return connection!;
-        }
-
-        public async Task<IDbConnection> AbrirConexaoDBClienteAsync(bool webConfig = false)
-        {
-            var con = GetConnectionDBCliente();
-
-            var connection = new SqlConnection(con);
-
-            await connection.OpenAsync();
-
-            return connection!;
+            return await new ConnectionFactory().GetConnectionDBAsync(banco);
         }
     }
 }

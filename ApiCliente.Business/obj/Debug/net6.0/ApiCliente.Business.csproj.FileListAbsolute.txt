@@ -1,0 +1,12 @@
+C:\Git\ApiCliente\ApiCliente.Business\bin\Debug\net6.0\ApiCliente.Business.deps.json
+C:\Git\ApiCliente\ApiCliente.Business\bin\Debug\net6.0\ApiCliente.Business.dll
+C:\Git\ApiCliente\ApiCliente.Business\bin\Debug\net6.0\ApiCliente.Business.pdb
+C:\Git\ApiCliente\ApiCliente.Business\obj\Debug\net6.0\ApiCliente.Business.csproj.AssemblyReference.cache
+C:\Git\ApiCliente\ApiCliente.Business\obj\Debug\net6.0\ApiCliente.Business.GeneratedMSBuildEditorConfig.editorconfig
+C:\Git\ApiCliente\ApiCliente.Business\obj\Debug\net6.0\ApiCliente.Business.AssemblyInfoInputs.cache
+C:\Git\ApiCliente\ApiCliente.Business\obj\Debug\net6.0\ApiCliente.Business.AssemblyInfo.cs
+C:\Git\ApiCliente\ApiCliente.Business\obj\Debug\net6.0\ApiCliente.Business.csproj.CoreCompileInputs.cache
+C:\Git\ApiCliente\ApiCliente.Business\obj\Debug\net6.0\ApiCliente.Business.dll
+C:\Git\ApiCliente\ApiCliente.Business\obj\Debug\net6.0\refint\ApiCliente.Business.dll
+C:\Git\ApiCliente\ApiCliente.Business\obj\Debug\net6.0\ApiCliente.Business.pdb
+C:\Git\ApiCliente\ApiCliente.Business\obj\Debug\net6.0\ref\ApiCliente.Business.dll

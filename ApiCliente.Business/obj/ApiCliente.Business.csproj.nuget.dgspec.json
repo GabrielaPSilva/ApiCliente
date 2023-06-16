@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Git\\ApiCliente\\ApiCliente.Data\\ApiCliente.Data.csproj": {}
+    "C:\\Git\\ApiCliente\\ApiCliente.Business\\ApiCliente.Business.csproj": {}
   },
   "projects": {
-    "C:\\Git\\ApiCliente\\ApiCliente.Data\\ApiCliente.Data.csproj": {
+    "C:\\Git\\ApiCliente\\ApiCliente.Business\\ApiCliente.Business.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Git\\ApiCliente\\ApiCliente.Data\\ApiCliente.Data.csproj",
-        "projectName": "ApiCliente.Data",
-        "projectPath": "C:\\Git\\ApiCliente\\ApiCliente.Data\\ApiCliente.Data.csproj",
+        "projectUniqueName": "C:\\Git\\ApiCliente\\ApiCliente.Business\\ApiCliente.Business.csproj",
+        "projectName": "ApiCliente.Business",
+        "projectPath": "C:\\Git\\ApiCliente\\ApiCliente.Business\\ApiCliente.Business.csproj",
         "packagesPath": "C:\\Users\\gabriela.pinheiro\\.nuget\\packages\\",
-        "outputPath": "C:\\Git\\ApiCliente\\ApiCliente.Data\\obj\\",
+        "outputPath": "C:\\Git\\ApiCliente\\ApiCliente.Business\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\gabriela.pinheiro\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -39,24 +39,6 @@
       "frameworks": {
         "net6.0": {
           "targetAlias": "net6.0",
-          "dependencies": {
-            "Dapper": {
-              "target": "Package",
-              "version": "[2.0.138, )"
-            },
-            "Microsoft.Extensions.Configuration.Abstractions": {
-              "target": "Package",
-              "version": "[7.0.0, )"
-            },
-            "Microsoft.Extensions.DependencyInjection.Abstractions": {
-              "target": "Package",
-              "version": "[7.0.0, )"
-            },
-            "System.Data.SqlClient": {
-              "target": "Package",
-              "version": "[4.8.5, )"
-            }
-          },
           "imports": [
             "net461",
             "net462",
