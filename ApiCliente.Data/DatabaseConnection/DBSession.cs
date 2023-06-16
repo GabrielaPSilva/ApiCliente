@@ -36,7 +36,5 @@ namespace ApiCliente.Data.DatabaseConnection
 
             return Connection;
         }
-
-        public IDbTransaction GetTransactionAsync() => Connection!.BeginTransaction();
     }
 }

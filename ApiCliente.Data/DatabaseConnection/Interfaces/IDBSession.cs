@@ -10,6 +10,5 @@ namespace ApiCliente.Data.DatabaseConnection.Interfaces
     public interface IDBSession
     {
         Task<IDbConnection> GetConnectionAsync(string banco);
-        Task<IDbTransaction> GetTransactionAsync();
     }
 }

@@ -49,68 +49,68 @@ namespace ApiCliente.Data.Repositories
             return await connection.QueryFirstOrDefaultAsync<TipoTelefoneModel>(query, new { idTipoTelefone });
         }
 
-        public async Task<int> Cadastrar(TipoTelefoneModel tipoTelefone)
-        {
-            IDbConnection connection = await _dbSession.GetConnectionAsync("Agenda");
-            string query = @"
-						INSERT INTO TipoContato
-							(Nome, RegexValidacao)
-						VALUES
-							(@Nome, @RegexValidacao);
-						SELECT LAST_INSERT_ID();
-						";
+      //  public async Task<int> Cadastrar(TipoTelefoneModel tipoTelefone)
+      //  {
+      //      IDbConnection connection = await _dbSession.GetConnectionAsync("Agenda");
+      //      string query = @"
+						//INSERT INTO TipoContato
+						//	(Nome, RegexValidacao)
+						//VALUES
+						//	(@Nome, @RegexValidacao);
+						//SELECT LAST_INSERT_ID();
+						//";
 
-            using (var transaction = connection.BeginTransaction())
-            {
-                try
-                {
-                    tipoTelefone.Id = await connection.QueryFirstOrDefaultAsync<int>(query, tipoTelefone, transaction: transaction);
-                    transaction.Commit();
-                    return tipoTelefone.Id;
-                }
-                catch
-                {
-                    transaction.Rollback();
-                    throw;
-                }
-            }
-        }
+      //      using (var transaction = connection.BeginTransaction())
+      //      {
+      //          try
+      //          {
+      //              tipoTelefone.Id = await connection.QueryFirstOrDefaultAsync<int>(query, tipoTelefone, transaction: transaction);
+      //              transaction.Commit();
+      //              return tipoTelefone.Id;
+      //          }
+      //          catch
+      //          {
+      //              transaction.Rollback();
+      //              throw;
+      //          }
+      //      }
+      //  }
 
-        public async Task<bool> Alterar(TipoContato tipoContato)
-        {
-            IDbConnection connection = await _dbSession.GetConnectionAsync("Agenda");
-            string query = @"
-						UPDATE
-							TipoContato
-						SET
-							Nome = @Nome,
-							RegexValidacao = @RegexValidacao
-						WHERE
-							Codigo = @Codigo;
-						";
+      //  public async Task<bool> Alterar(TipoContato tipoContato)
+      //  {
+      //      IDbConnection connection = await _dbSession.GetConnectionAsync("Agenda");
+      //      string query = @"
+						//UPDATE
+						//	TipoContato
+						//SET
+						//	Nome = @Nome,
+						//	RegexValidacao = @RegexValidacao
+						//WHERE
+						//	Codigo = @Codigo;
+						//";
 
-            return await connection.ExecuteAsync(
-                query,
-                tipoContato,
-                transaction: _dbSession.Transaction) > 0;
-        }
+      //      return await connection.ExecuteAsync(
+      //          query,
+      //          tipoContato,
+      //          transaction: _dbSession.Transaction) > 0;
+      //  }
 
-        public async Task<bool> Desativar(int codigoTipoContato)
-        {
-            IDbConnection connection = await _dbSession.GetConnectionAsync("Agenda");
-            string query = @"
-						UPDATE
-							TipoContato
-						SET
-							Ativo = 0
-						WHERE
-							Codigo = @codigoTipoContato;
-						";
+      //  public async Task<bool> Desativar(int codigoTipoContato)
+      //  {
+      //      IDbConnection connection = await _dbSession.GetConnectionAsync("Agenda");
+      //      string query = @"
+						//UPDATE
+						//	TipoContato
+						//SET
+						//	Ativo = 0
+						//WHERE
+						//	Codigo = @codigoTipoContato;
+						//";
 
-            return await connection.ExecuteAsync(
-                query,
-                new { codigoTipoContato },
-                transaction: _dbSession.Transaction) > 0;
-        }
+      //      return await connection.ExecuteAsync(
+      //          query,
+      //          new { codigoTipoContato },
+      //          transaction: _dbSession.Transaction) > 0;
+      //  }
     }
 }
