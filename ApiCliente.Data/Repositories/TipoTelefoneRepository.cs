@@ -8,6 +8,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Transactions;
 
 namespace ApiCliente.Data.Repositories
 {
@@ -49,68 +50,84 @@ namespace ApiCliente.Data.Repositories
             return await connection.QueryFirstOrDefaultAsync<TipoTelefoneModel>(query, new { idTipoTelefone });
         }
 
-      //  public async Task<int> Cadastrar(TipoTelefoneModel tipoTelefone)
-      //  {
-      //      IDbConnection connection = await _dbSession.GetConnectionAsync("Agenda");
-      //      string query = @"
-						//INSERT INTO TipoContato
-						//	(Nome, RegexValidacao)
-						//VALUES
-						//	(@Nome, @RegexValidacao);
-						//SELECT LAST_INSERT_ID();
-						//";
+        public async Task<int> Cadastrar(TipoTelefoneModel tipoTelefone)
+        {
+            IDbConnection connection = await _dbSession.GetConnectionAsync("DBCliente");
+            string query = @"
+						    INSERT INTO TipoTelefone
+							    (Tipo)
+						    VALUES
+							    (@Tipo);
+						    SELECT LAST_INSERT_ID()";
 
-      //      using (var transaction = connection.BeginTransaction())
-      //      {
-      //          try
-      //          {
-      //              tipoTelefone.Id = await connection.QueryFirstOrDefaultAsync<int>(query, tipoTelefone, transaction: transaction);
-      //              transaction.Commit();
-      //              return tipoTelefone.Id;
-      //          }
-      //          catch
-      //          {
-      //              transaction.Rollback();
-      //              throw;
-      //          }
-      //      }
-      //  }
+            using (var transaction = connection.BeginTransaction())
+            {
+                try
+                {
+                    tipoTelefone.Id = await connection.QueryFirstOrDefaultAsync<int>(query, tipoTelefone, transaction: transaction);
+                    transaction.Commit();
+                    return tipoTelefone.Id;
+                }
+                catch
+                {
+                    transaction.Rollback();
+                    return 0;
+                }
+            }
+        }
 
-      //  public async Task<bool> Alterar(TipoContato tipoContato)
-      //  {
-      //      IDbConnection connection = await _dbSession.GetConnectionAsync("Agenda");
-      //      string query = @"
-						//UPDATE
-						//	TipoContato
-						//SET
-						//	Nome = @Nome,
-						//	RegexValidacao = @RegexValidacao
-						//WHERE
-						//	Codigo = @Codigo;
-						//";
+        public async Task<bool> Alterar(TipoTelefoneModel tipoTelefone)
+        {
+            IDbConnection connection = await _dbSession.GetConnectionAsync("DBCliente");
+            string query = @"
+						    UPDATE
+							    TipoTelefone
+						    SET
+							    Tipo = @Tipo
+						    WHERE
+							    Id = @Id";
 
-      //      return await connection.ExecuteAsync(
-      //          query,
-      //          tipoContato,
-      //          transaction: _dbSession.Transaction) > 0;
-      //  }
+            using (var transaction = connection.BeginTransaction())
+            {
+                try
+                {
+                   var retorno = await connection.ExecuteAsync(query, tipoTelefone, transaction: transaction) > 0;
+                    transaction.Commit();
+                    return retorno;
+                }
+                catch
+                {
+                    transaction.Rollback();
+                    return false;
+                }
+            }
+        }
 
-      //  public async Task<bool> Desativar(int codigoTipoContato)
-      //  {
-      //      IDbConnection connection = await _dbSession.GetConnectionAsync("Agenda");
-      //      string query = @"
-						//UPDATE
-						//	TipoContato
-						//SET
-						//	Ativo = 0
-						//WHERE
-						//	Codigo = @codigoTipoContato;
-						//";
+        public async Task<bool> Desativar(int idTipoTelefone)
+        {
+            IDbConnection connection = await _dbSession.GetConnectionAsync("DBCliente");
+            string query = @"
+                            UPDATE
+        	                    TipoTelefone
+                            SET
+        	                    Ativo = 0
+                            WHERE
+        	                    Id = @idTipoTelefone";
 
-      //      return await connection.ExecuteAsync(
-      //          query,
-      //          new { codigoTipoContato },
-      //          transaction: _dbSession.Transaction) > 0;
-      //  }
+            using (var transaction = connection.BeginTransaction())
+            {
+                try
+                {
+                    var retorno = await connection.ExecuteAsync(query, new { idTipoTelefone }, transaction: transaction) > 0;
+                    transaction.Commit();
+                    return retorno;
+                }
+                catch
+                {
+                    transaction.Rollback();
+                    return false;
+                }
+            }
+        }
     }
 }

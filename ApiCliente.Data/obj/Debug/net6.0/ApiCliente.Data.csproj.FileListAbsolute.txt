@@ -10,3 +10,6 @@ C:\Git\ApiCliente\ApiCliente.Data\obj\Debug\net6.0\ApiCliente.Data.dll
 C:\Git\ApiCliente\ApiCliente.Data\obj\Debug\net6.0\refint\ApiCliente.Data.dll
 C:\Git\ApiCliente\ApiCliente.Data\obj\Debug\net6.0\ApiCliente.Data.pdb
 C:\Git\ApiCliente\ApiCliente.Data\obj\Debug\net6.0\ref\ApiCliente.Data.dll
+C:\Git\ApiCliente\ApiCliente.Data\bin\Debug\net6.0\ApiCliente.Model.dll
+C:\Git\ApiCliente\ApiCliente.Data\bin\Debug\net6.0\ApiCliente.Model.pdb
+C:\Git\ApiCliente\ApiCliente.Data\obj\Debug\net6.0\ApiCliente.Data.csproj.CopyComplete

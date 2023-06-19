@@ -8,6 +8,7 @@
     ".NETCoreApp,Version=v6.0": {
       "ApiCliente.Data/1.0.0": {
         "dependencies": {
+          "ApiCliente.Model": "1.0.0",
           "Dapper": "2.0.138",
           "Microsoft.Extensions.Configuration.Abstractions": "7.0.0",
           "Microsoft.Extensions.DependencyInjection.Abstractions": "7.0.0",
@@ -130,7 +131,12 @@
           "System.Security.Principal.Windows": "4.7.0"
         }
       },
-      "System.Security.Principal.Windows/4.7.0": {}
+      "System.Security.Principal.Windows/4.7.0": {},
+      "ApiCliente.Model/1.0.0": {
+        "runtime": {
+          "ApiCliente.Model.dll": {}
+        }
+      }
     }
   },
   "libraries": {
@@ -236,6 +242,11 @@
       "sha512": "sha512-ojD0PX0XhneCsUbAZVKdb7h/70vyYMDYs85lwEI+LngEONe/17A0cFaRFqZU+sOEidcVswYWikYOQ9PPfjlbtQ==",
       "path": "system.security.principal.windows/4.7.0",
       "hashPath": "system.security.principal.windows.4.7.0.nupkg.sha512"
+    },
+    "ApiCliente.Model/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
     }
   }
 }

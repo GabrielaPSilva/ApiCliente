@@ -1,12 +1,18 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using ApiCliente.Business.Services.Interfaces;
+using ApiCliente.Model.Entities;
+using Microsoft.AspNetCore.Mvc;
 
 namespace ApiCliente.Controllers
 {
+    [Route("api/tipotelefone")]
+    [ApiController]
     public class TipoTelefoneController : Controller
     {
-        public IActionResult Index()
+        private readonly ITipoTelefoneService _tipoTelefoneService;
+
+        public TipoTelefoneController(ITipoTelefoneService tipoTelefoneService)
         {
-            return View();
+            _tipoTelefoneService = tipoTelefoneService;
         }
     }
 }

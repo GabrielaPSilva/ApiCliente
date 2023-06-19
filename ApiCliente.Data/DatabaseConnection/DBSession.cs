@@ -13,7 +13,6 @@ namespace ApiCliente.Data.DatabaseConnection
     public class DBSession : IDBSession
     {
         public IDbConnection? Connection { get; set; }
-        public IDbTransaction? Transaction { get; set; }
 
         public async Task<bool> GenerateSessionDB(string banco)
         {
