@@ -1,3 +1,4 @@
+using ApiCliente.Initializers;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.OpenApi.Models;
 
@@ -7,6 +8,10 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
+
+new BusinessInitializer().Initialize(builder.Services);
+new DataInitializer().Initialize(builder.Services);
+new SessionInitializer().Initialize(builder.Services);
 
 builder.Services.AddSwaggerGen(options =>
 {
