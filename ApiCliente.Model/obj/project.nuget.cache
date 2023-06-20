@@ -1,8 +1,15 @@
 {
   "version": 2,
-  "dgSpecHash": "EQhm8jSdDRl1dWprA/m387JTp1OS2sOfQH/AezDM3vHDf9Uw+DBqSYS+pk5t1c/rS2tFOQLbK9ZEJFQ3opaG9g==",
+  "dgSpecHash": "eg6TwhfGDwscZCqX8puZRsXeq3o9RdwSAe2nIc0f8Ojjm4PjbTBq37UYb9ltqsZ3TdSTffh2Znwpm1DTFHy6Dw==",
   "success": true,
   "projectFilePath": "C:\\Git\\ApiCliente\\ApiCliente.Model\\ApiCliente.Model.csproj",
   "expectedPackageFiles": [],
-  "logs": []
+  "logs": [
+    {
+      "code": "NU1803",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Você está executando a operação 'restore' com uma fonte 'HTTP', 'http://nuget.fiap.com.br/nuget'. O acesso não HTTPS será removido em uma versão futura. Considere migrar para uma fonte 'HTTPS'."
+    }
+  ]
 }

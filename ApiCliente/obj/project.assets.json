@@ -947,7 +947,8 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\gabriela.pinheiro\\.nuget\\packages\\": {}
+    "C:\\Users\\gabip\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
@@ -955,11 +956,15 @@
       "projectUniqueName": "C:\\Git\\ApiCliente\\ApiCliente\\ApiCliente.csproj",
       "projectName": "ApiCliente",
       "projectPath": "C:\\Git\\ApiCliente\\ApiCliente\\ApiCliente.csproj",
-      "packagesPath": "C:\\Users\\gabriela.pinheiro\\.nuget\\packages\\",
+      "packagesPath": "C:\\Users\\gabip\\.nuget\\packages\\",
       "outputPath": "C:\\Git\\ApiCliente\\ApiCliente\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+      ],
       "configFilePaths": [
-        "C:\\Users\\gabriela.pinheiro\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\gabip\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -967,6 +972,8 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "C:\\Program Files\\dotnet\\sdk\\7.0.304\\Sdks\\Microsoft.NET.Sdk.Web\\library-packs": {},
+        "http://nuget.fiap.com.br/nuget": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -1013,8 +1020,16 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.400\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.304\\RuntimeIdentifierGraph.json"
       }
     }
-  }
+  },
+  "logs": [
+    {
+      "code": "NU1803",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Você está executando a operação 'restore' com uma fonte 'HTTP', 'http://nuget.fiap.com.br/nuget'. O acesso não HTTPS será removido em uma versão futura. Considere migrar para uma fonte 'HTTPS'."
+    }
+  ]
 }

@@ -7,18 +7,28 @@ GO
 --DROP TABLE Cliente
 CREATE TABLE Cliente 
 (
-	Id INT IDENTITY(1,1),
+	Id INT IDENTITY(1,1) PRIMARY KEY,
 	Nome VARCHAR(100) NOT NULL,
-	Email VARCHAR(100) PRIMARY KEY NOT NULL,
+	Email VARCHAR(100) UNIQUE NOT NULL,
 	Ativo BIT NOT NULL DEFAULT 1
+);
+GO
 
-	CONSTRAINT ClienteIdEmail NONCLUSTERED INDEX
+CREATE NONCLUSTERED INDEX ClienteIdEmail
+ON Cliente
     (
         Id ASC,
         Email ASC
-    )
-);
+    );
 GO
+
+--DROP TABLE TipoTelefone
+CREATE TABLE TipoTelefone
+(
+	Id INT IDENTITY(1,1) PRIMARY KEY,
+	Tipo VARCHAR(50) UNIQUE NOT NULL,
+	Ativo BIT NOT NULL DEFAULT 1
+);
 
 --DROP TABLE TelefoneCliente
 CREATE TABLE TelefoneCliente
@@ -28,23 +38,18 @@ CREATE TABLE TelefoneCliente
 	IdTipoTelefone INT NOT NULL,
 	Telefone VARCHAR(20) PRIMARY KEY NOT NULL,
 	Ativo BIT NOT NULL DEFAULT 1,
-	FOREIGN KEY (IdCliente) REFERENCES Cliente(Id),
-	FOREIGN KEY (IdTipoTelefone) REFERENCES TipoTelefone(Id)
+	CONSTRAINT FK_Cliente_TelefoneCliente FOREIGN KEY (IdCliente) REFERENCES Cliente(Id),
+	CONSTRAINT FK_TelefoneCliente_TipoTelefone FOREIGN KEY (IdTipoTelefone) REFERENCES TipoTelefone(Id)
+);
+GO
 
-	CONSTRAINT TelefoneIdTipo NONCLUSTERED INDEX
+CREATE NONCLUSTERED INDEX TelefoneIdTipo 
+ON TelefoneCliente
     (
         IdCliente ASC,
         Telefone ASC
-    )
-)
-
---DROP TABLE TipoTelefone
-CREATE TABLE TipoTelefone
-(
-	Id INT IDENTITY(1,1),
-	Tipo VARCHAR(50) PRIMARY KEY NOT NULL,
-	Ativo BIT NOT NULL DEFAULT 1
-)
+    );
+GO
 
 SELECT * FROM Cliente WHERE Ativo = 1 ORDER BY Nome;
 SELECT * FROM TelefoneCliente WHERE Ativo = 1;

@@ -41,3 +41,8 @@ C:\Git\ApiCliente\ApiCliente\bin\Debug\net6.0\ApiCliente.Model.dll
 C:\Git\ApiCliente\ApiCliente\bin\Debug\net6.0\ApiCliente.Business.pdb
 C:\Git\ApiCliente\ApiCliente\bin\Debug\net6.0\ApiCliente.Data.pdb
 C:\Git\ApiCliente\ApiCliente\bin\Debug\net6.0\ApiCliente.Model.pdb
+C:\Git\ApiCliente\ApiCliente\obj\Debug\net6.0\staticwebassets\msbuild.ApiCliente.Microsoft.AspNetCore.StaticWebAssets.props
+C:\Git\ApiCliente\ApiCliente\obj\Debug\net6.0\staticwebassets\msbuild.build.ApiCliente.props
+C:\Git\ApiCliente\ApiCliente\obj\Debug\net6.0\staticwebassets\msbuild.buildMultiTargeting.ApiCliente.props
+C:\Git\ApiCliente\ApiCliente\obj\Debug\net6.0\staticwebassets\msbuild.buildTransitive.ApiCliente.props
+C:\Git\ApiCliente\ApiCliente\obj\Debug\net6.0\staticwebassets.pack.json
