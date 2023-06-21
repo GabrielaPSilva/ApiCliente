@@ -106,7 +106,13 @@ namespace ApiCliente.Controllers
                     return BadRequest(new { erro = mensagemErro });
                 }
 
-                if (await _tipoTelefoneService.Cadastrar(tipoTelefone))
+                var retornoCadastro = await _tipoTelefoneService.Cadastrar(tipoTelefone);
+
+                if (retornoCadastro == 2627 || retornoCadastro == 2601)
+                {
+                    return BadRequest(new { erro = "Tipo telefone já existente na base" });
+                }
+                else if (retornoCadastro > 0)
                 {
                     var links = new List<Link>
                     {
@@ -178,6 +184,29 @@ namespace ApiCliente.Controllers
                 }
 
                 return BadRequest(new { erro = "Erro ao alterar tipo de telefone" });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
+        }
+
+        [HttpDelete("{idTipoTelefone}")]
+        public async Task<IActionResult> Desativar(int idTipoTelefone)
+        {
+            try
+            {
+                if (await _tipoTelefoneService.Retornar(idTipoTelefone) == null)
+                {
+                    return NotFound(new { erro = "Tipo de contato não encontrado" });
+                }
+
+                if (await _tipoTelefoneService.Desativar(idTipoTelefone))
+                {
+                    return NoContent();
+                }
+
+                return BadRequest(new { erro = "Erro ao desativar tipo de telefone" });
             }
             catch (Exception ex)
             {

@@ -28,12 +28,12 @@ namespace ApiCliente.Business.Services
             return await _tipoTelefoneRepository.RetornarId(idTipoTelefone);
         }
 
-        public async Task<bool> Cadastrar(TipoTelefoneModel tipoTelefone)
+        public async Task<int> Cadastrar(TipoTelefoneModel tipoTelefone)
         {
             if (tipoTelefone == null)
-                return false;
+                return 0;
 
-            return await _tipoTelefoneRepository.Cadastrar(tipoTelefone) > 0;
+            return await _tipoTelefoneRepository.Cadastrar(tipoTelefone);
         }
 
         public async Task<bool> Alterar(TipoTelefoneModel tipoTelefone)

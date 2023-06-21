@@ -58,7 +58,7 @@ namespace ApiCliente.Data.Repositories
 							    (Tipo)
 						    VALUES
 							    (@Tipo);
-						    SELECT LAST_INSERT_ID()";
+						    SELECT SCOPE_IDENTITY()";
 
             using (var transaction = connection.BeginTransaction())
             {
@@ -68,8 +68,14 @@ namespace ApiCliente.Data.Repositories
                     transaction.Commit();
                     return tipoTelefone.Id;
                 }
-                catch
+                catch(System.Data.SqlClient.SqlException ex)
                 {
+                    if(ex.Number == 2627 || ex.Number == 2601)
+                    {
+                        transaction.Rollback();
+                        return ex.Number;
+                    }
+
                     transaction.Rollback();
                     return 0;
                 }
