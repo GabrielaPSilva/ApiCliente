@@ -32,12 +32,12 @@ namespace ApiCliente.Model.Entities
 
             ehValido = ehValido && !string.IsNullOrEmpty(Tipo);
             ehValido = ehValido && Tipo!.Length > 1;
-            ehValido = ehValido && Tipo!.Length <= 100;
+            ehValido = ehValido && Tipo!.Length <= 50;
 
             mensagemErro = string.Empty;
 
             if (!ehValido)
-                mensagemErro = "Informe um tipo de telefone válido.\n";
+                mensagemErro = "Informe um tipo de telefone válido, máximo 50 caracteres.\n";
 
             return ehValido;
         }

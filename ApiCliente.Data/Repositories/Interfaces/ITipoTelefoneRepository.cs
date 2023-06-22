@@ -13,6 +13,6 @@ namespace ApiCliente.Data.Repositories.Interfaces
         Task<TipoTelefoneModel> RetornarId(int idTipoTelefone);
         Task<int> Cadastrar(TipoTelefoneModel tipoTelefone);
         Task<bool> Alterar(TipoTelefoneModel tipoTelefone);
-        Task<bool> Desativar(int idTipoTelefone);
+        Task<bool> Deletar(int idTipoTelefone);
     }
 }

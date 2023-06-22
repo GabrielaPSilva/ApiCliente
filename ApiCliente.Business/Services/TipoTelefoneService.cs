@@ -44,9 +44,9 @@ namespace ApiCliente.Business.Services
             return await _tipoTelefoneRepository.Alterar(tipoTelefone);
         }
 
-        public async Task<bool> Desativar(int idTipoTelefone)
+        public async Task<bool> Deletar(int idTipoTelefone)
         {
-            return await _tipoTelefoneRepository.Desativar(idTipoTelefone);
+            return await _tipoTelefoneRepository.Deletar(idTipoTelefone);
         }
     }
 }

@@ -192,16 +192,16 @@ namespace ApiCliente.Controllers
         }
 
         [HttpDelete("{idTipoTelefone}")]
-        public async Task<IActionResult> Desativar(int idTipoTelefone)
+        public async Task<IActionResult> Deletar(int idTipoTelefone)
         {
             try
             {
                 if (await _tipoTelefoneService.Retornar(idTipoTelefone) == null)
                 {
-                    return NotFound(new { erro = "Tipo de contato não encontrado" });
+                    return NotFound(new { erro = "Tipo de telefone não encontrado" });
                 }
 
-                if (await _tipoTelefoneService.Desativar(idTipoTelefone))
+                if (await _tipoTelefoneService.Deletar(idTipoTelefone))
                 {
                     return NoContent();
                 }

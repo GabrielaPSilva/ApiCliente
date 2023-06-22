@@ -109,14 +109,12 @@ namespace ApiCliente.Data.Repositories
             }
         }
 
-        public async Task<bool> Desativar(int idTipoTelefone)
+        public async Task<bool> Deletar(int idTipoTelefone)
         {
             IDbConnection connection = await _dbSession.GetConnectionAsync("DBCliente");
             string query = @"
-                            UPDATE
+                            DELETE
         	                    TipoTelefone
-                            SET
-        	                    Ativo = 0
                             WHERE
         	                    Id = @idTipoTelefone";
 
