@@ -193,7 +193,7 @@ namespace ApiCliente.Data.Repositories
             }
         }
 
-        public async Task<bool> Desativar(int idTelefone)
+        public async Task<bool> Desativar(int idTelefone, int idCliente)
         {
             IDbConnection connection = await _dbSession.GetConnectionAsync("DBCliente");
             string query = @"
@@ -202,13 +202,14 @@ namespace ApiCliente.Data.Repositories
                             SET
         	                    Ativo = 0
                             WHERE
-        	                    Id = @idTelefone";
+        	                    Id = @idTelefone
+                                AND IdCliente = @idCliente";
 
             using (var transaction = connection.BeginTransaction())
             {
                 try
                 {
-                    var retorno = await connection.ExecuteAsync(query, new { idTelefone }, transaction: transaction) > 0;
+                    var retorno = await connection.ExecuteAsync(query, new { idTelefone, idCliente }, transaction: transaction) > 0;
                     transaction.Commit();
                     return retorno;
                 }
@@ -220,7 +221,7 @@ namespace ApiCliente.Data.Repositories
             }
         }
 
-        public async Task<bool> Reativar(string telefone)
+        public async Task<bool> Reativar(int idCliente, string telefone)
         {
             IDbConnection connection = await _dbSession.GetConnectionAsync("DBCliente");
             string query = @"
@@ -229,13 +230,14 @@ namespace ApiCliente.Data.Repositories
                             SET
         	                    Ativo = 1
                             WHERE
-        	                    Id = @telefone";
+        	                    IdCliente = @idCliente
+                                AND Telefone = @telefone";
 
             using (var transaction = connection.BeginTransaction())
             {
                 try
                 {
-                    var retorno = await connection.ExecuteAsync(query, new { telefone }, transaction: transaction) > 0;
+                    var retorno = await connection.ExecuteAsync(query, new { idCliente, telefone }, transaction: transaction) > 0;
                     transaction.Commit();
                     return retorno;
                 }

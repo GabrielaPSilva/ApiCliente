@@ -230,7 +230,7 @@ namespace ApiCliente.Controllers
         {
             try
             {
-                if (!cliente.IsTrue(out string mensagemErro))
+                if (!cliente.IsValid(out string mensagemErro))
                 {
                     return BadRequest(new { erro = mensagemErro });
                 }
@@ -327,7 +327,7 @@ namespace ApiCliente.Controllers
                     telefone.IdCliente = cliente.Id;
                 }
 
-                if (!cliente.IsTrue(out string mensagemErro))
+                if (!cliente.IsValid(out string mensagemErro))
                 {
                     return BadRequest(new { erro = mensagemErro });
                 }
@@ -391,7 +391,7 @@ namespace ApiCliente.Controllers
 
                 foreach (TelefoneClienteModel telefone in retornoTelefonesCliente)
                 {
-                    bool desativarTelefone = await _telefoneClienteService.Desativar(telefone.Id);
+                    bool desativarTelefone = await _telefoneClienteService.Desativar(telefone.Id, telefone.IdCliente);
 
                     if (!desativarTelefone)
                     {
@@ -428,7 +428,7 @@ namespace ApiCliente.Controllers
 
                 foreach (TelefoneClienteModel telefone in retornoTelefonesCliente)
                 {
-                    bool desativarTelefone = await _telefoneClienteService.Desativar(telefone.Id);
+                    bool desativarTelefone = await _telefoneClienteService.Desativar(telefone.Id, telefone.IdCliente);
 
                     if (!desativarTelefone)
                     {
@@ -448,42 +448,5 @@ namespace ApiCliente.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
             }
         }
-
-        //[HttpDelete("email/{email}")]
-        //public async Task<IActionResult> Reativar(string email)
-        //{
-        //    try
-        //    {
-        //        ClienteModel retornoCliente = await _clienteService.RetornarClienteEmail(email);
-
-        //        if (retornoCliente == null)
-        //        {
-        //            return NotFound(new { erro = "Cliente não encontrado" });
-        //        }
-
-        //        List<TelefoneClienteModel> retornoTelefonesCliente = await _telefoneClienteService.RetornarTelefoneIdCliente(retornoCliente.Id);
-
-        //        foreach (TelefoneClienteModel telefone in retornoTelefonesCliente)
-        //        {
-        //            bool desativarTelefone = await _telefoneClienteService.Desativar(telefone.Id);
-
-        //            if (!desativarTelefone)
-        //            {
-        //                return BadRequest(new { erro = "Erro durante o processo de exclusão dos telefones que pertencem ao cliente." });
-        //            }
-        //        }
-
-        //        if (await _clienteService.DesativarEmail(email))
-        //        {
-        //            return NoContent();
-        //        }
-
-        //        return BadRequest(new { erro = "Erro ao desativar cliente" });
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
-        //    }
-        //}
     }
 }

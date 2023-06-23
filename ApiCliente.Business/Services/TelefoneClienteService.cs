@@ -49,14 +49,14 @@ namespace ApiCliente.Business.Services
             return await _telefoneRepository.Alterar(telefone);
         }
 
-        public async Task<bool> Desativar(int idTelefone)
+        public async Task<bool> Desativar(int idTelefone, int idCliente)
         {
-            return await _telefoneRepository.Desativar(idTelefone);
+            return await _telefoneRepository.Desativar(idTelefone, idCliente);
         }
 
-        public async Task<bool> Reativar(string telefone)
+        public async Task<bool> Reativar(int idCliente, string telefone)
         {
-            return await _telefoneRepository.Reativar(telefone);
+            return await _telefoneRepository.Reativar(idCliente, telefone);
         }
     }
 }

@@ -14,7 +14,7 @@ namespace ApiCliente.Data.Repositories.Interfaces
         Task<TelefoneClienteModel> RetornarTelefoneCliente(int idTelefone, int idCliente);
         Task<int> Cadastrar(TelefoneClienteModel telefone);
         Task<bool> Alterar(TelefoneClienteModel telefone);
-        Task<bool> Desativar(int idTelefone);
-        Task<bool> Reativar(string telefone);
+        Task<bool> Desativar(int idTelefone, int idCliente);
+        Task<bool> Reativar(int idCliente, string telefone);
     }
 }

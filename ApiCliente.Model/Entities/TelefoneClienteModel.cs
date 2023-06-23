@@ -19,78 +19,78 @@ namespace ApiCliente.Model.Entities
         public ClienteModel? Cliente { get; set; }
         public TipoTelefoneModel? TipoTelefone { get; set; }
 
-        public bool IsTrue(out string mensagemErro)
+        public bool IsValid(out string mensagemErro)
         {
-            bool isTrue = true;
+            bool isValid = true;
             StringBuilder sbMensagemErro = new StringBuilder();
 
             string mensagemErroIdTipoTelefone = string.Empty;
-            isTrue = isTrue && ValidarIdTipoTelefone(out mensagemErroIdTipoTelefone);
+            isValid = isValid && ValidarIdTipoTelefone(out mensagemErroIdTipoTelefone);
             sbMensagemErro.Append(mensagemErroIdTipoTelefone);
 
             string mensagemErroTelefone = string.Empty;
-            isTrue = isTrue && ValidarTelefone(out mensagemErroTelefone);
+            isValid = isValid && ValidarTelefone(out mensagemErroTelefone);
             sbMensagemErro.Append(mensagemErroTelefone);
 
             string mensagemErroCliente = string.Empty;
-            isTrue = isTrue && (Cliente == null || Cliente.IsTrue(out mensagemErroCliente));
+            isValid = isValid && (Cliente == null || Cliente.IsValid(out mensagemErroCliente));
             sbMensagemErro.Append(mensagemErroCliente);
 
             string mensagemErroTipoTelefone = string.Empty;
-            isTrue = isTrue && (TipoTelefone == null || TipoTelefone.IsTrue(out mensagemErroTipoTelefone));
+            isValid = isValid && (TipoTelefone == null || TipoTelefone.IsValid(out mensagemErroTipoTelefone));
             sbMensagemErro.Append(mensagemErroTipoTelefone);
 
             mensagemErro = sbMensagemErro.ToString();
 
-            return isTrue;
+            return isValid;
         }
 
         private bool ValidarIdCliente(out string mensagemErro)
         {
-            bool isTrue = IdCliente > 0;
+            bool isValid = IdCliente > 0;
 
             mensagemErro = string.Empty;
 
-            if (!isTrue)
+            if (!isValid)
             {
                 mensagemErro = "Informe um tipo telefone válido.\n";
             }
 
-            return isTrue;
+            return isValid;
         }
 
         private bool ValidarIdTipoTelefone(out string mensagemErro)
         {
-            bool isTrue = IdTipoTelefone > 0;
+            bool isValid = IdTipoTelefone > 0;
 
             mensagemErro = string.Empty;
 
-            if (!isTrue)
+            if (!isValid)
             {
                 mensagemErro = "Informe um tipo telefone válido.\n";
             }
 
-            return isTrue;
+            return isValid;
         }
 
         private bool ValidarTelefone(out string mensagemErro)
         {
-            bool isTrue = true;
+            bool isValid = true;
             StringBuilder sbMensagemErro = new StringBuilder();
 
             string TelefoneRegexPattern = @"^\d{2}\d{8,9}$";
 
-            isTrue = isTrue && !string.IsNullOrEmpty(Telefone);
-            isTrue = isTrue && Telefone!.Length >= 1;
-            isTrue = isTrue && Telefone!.Length <= 20;
-            isTrue = isTrue && Regex.IsMatch(Telefone!, TelefoneRegexPattern);
+            isValid = isValid && !string.IsNullOrEmpty(Telefone);
+            isValid = isValid && Telefone!.Length >= 1;
+            isValid = isValid && Telefone!.Length <= 20;
+            isValid = isValid && Regex.IsMatch(Telefone!, TelefoneRegexPattern);
 
             mensagemErro = string.Empty;
 
-            if (!isTrue)
+            if (!isValid)
                 mensagemErro = "Informe um telefone válido.";
 
-            return isTrue;
+            return isValid;
         }
     }
 }

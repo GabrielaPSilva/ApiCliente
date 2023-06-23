@@ -101,7 +101,7 @@ namespace ApiCliente.Controllers
         {
             try
             {
-                if (!tipoTelefone.IsTrue(out string mensagemErro))
+                if (!tipoTelefone.IsValid(out string mensagemErro))
                 {
                     return BadRequest(new { erro = mensagemErro });
                 }
@@ -144,7 +144,7 @@ namespace ApiCliente.Controllers
         {
             try
             {
-                if (!tipoTelefone.IsTrue(out string mensagemErro))
+                if (!tipoTelefone.IsValid(out string mensagemErro))
                 {
                     return BadRequest(new { erro = mensagemErro });
                 }
