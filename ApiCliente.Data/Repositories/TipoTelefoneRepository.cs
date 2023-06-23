@@ -28,9 +28,7 @@ namespace ApiCliente.Data.Repositories
 						    SELECT
 							    *
 						    FROM
-							    TipoTelefone
-						    WHERE
-							    Ativo = 1";
+							    TipoTelefone";
 
             return (await connection.QueryAsync<TipoTelefoneModel>(query)).ToList();
         }
@@ -44,8 +42,7 @@ namespace ApiCliente.Data.Repositories
 						    FROM
 							    TipoTelefone
 						    WHERE
-							    Ativo = 1
-                                AND Id = @idTipoTelefone";
+                                Id = @idTipoTelefone";
 
             return await connection.QueryFirstOrDefaultAsync<TipoTelefoneModel>(query, new { idTipoTelefone });
         }
@@ -68,14 +65,8 @@ namespace ApiCliente.Data.Repositories
                     transaction.Commit();
                     return tipoTelefone.Id;
                 }
-                catch(System.Data.SqlClient.SqlException ex)
+                catch
                 {
-                    if(ex.Number == 2627 || ex.Number == 2601)
-                    {
-                        transaction.Rollback();
-                        return ex.Number;
-                    }
-
                     transaction.Rollback();
                     return 0;
                 }

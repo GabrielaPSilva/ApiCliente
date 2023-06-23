@@ -10,36 +10,35 @@ namespace ApiCliente.Model.Entities
     {
         public int Id { get; set; }
         public string? Tipo { get; set; }
-        public bool Ativo { get; set; }
 
-        public bool EhValido(out string mensagemErro)
+        public bool IsTrue(out string mensagemErro)
         {
-            bool ehValido = true;
+            bool isTrue = true;
             StringBuilder sbMensagemErro = new StringBuilder();
 
             string mensagemErroNome = string.Empty;
-            ehValido = ehValido && ValidarNomeTipo(out mensagemErroNome);
+            isTrue = isTrue && ValidarNomeTipo(out mensagemErroNome);
             sbMensagemErro.Append(mensagemErroNome);
 
             mensagemErro = sbMensagemErro.ToString();
 
-            return ehValido;
+            return isTrue;
         }
 
         private bool ValidarNomeTipo(out string mensagemErro)
         {
-            bool ehValido = true;
+            bool isTrue = true;
 
-            ehValido = ehValido && !string.IsNullOrEmpty(Tipo);
-            ehValido = ehValido && Tipo!.Length > 1;
-            ehValido = ehValido && Tipo!.Length <= 50;
+            isTrue = isTrue && !string.IsNullOrEmpty(Tipo);
+            isTrue = isTrue && Tipo!.Length > 1;
+            isTrue = isTrue && Tipo!.Length <= 50;
 
             mensagemErro = string.Empty;
 
-            if (!ehValido)
+            if (!isTrue)
                 mensagemErro = "Informe um tipo de telefone válido, máximo 50 caracteres.\n";
 
-            return ehValido;
+            return isTrue;
         }
     }
 }

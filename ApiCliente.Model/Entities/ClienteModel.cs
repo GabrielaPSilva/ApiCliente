@@ -16,78 +16,77 @@ namespace ApiCliente.Model.Entities
         public bool Ativo { get; set; }
 
         public List<TelefoneClienteModel>? ListaTelefones { get; set; }
-        public TelefoneClienteModel? TelefoneCliente { get; set; }
 
-        public bool EhValido(out string mensagemErro)
+        public bool IsTrue(out string mensagemErro)
         {
-            bool ehValido = true;
+            bool isTrue = true;
             StringBuilder sbMensagemErro = new StringBuilder();
 
             string mensagemErroNome = string.Empty;
-            ehValido = ehValido && ValidarNome(out mensagemErroNome);
+            isTrue = isTrue && ValidarNome(out mensagemErroNome);
             sbMensagemErro.Append(mensagemErroNome);
 
             string mensagemErroEmail = string.Empty;
-            ehValido = ehValido && ValidarEmail(out mensagemErroEmail);
+            isTrue = isTrue && ValidarEmail(out mensagemErroEmail);
             sbMensagemErro.Append(mensagemErroEmail);
 
             string mensagemErroListaTelefones = string.Empty;
-            ehValido = ehValido && ValidarListaTelefones(out mensagemErroListaTelefones);
+            isTrue = isTrue && ValidarListaTelefones(out mensagemErroListaTelefones);
             sbMensagemErro.Append(mensagemErroListaTelefones);
 
             mensagemErro = sbMensagemErro.ToString();
 
-            return ehValido;
+            return isTrue;
         }
 
         private bool ValidarNome(out string mensagemErro)
         {
-            bool ehValido = true;
-            ehValido = ehValido && !string.IsNullOrEmpty(Nome);
-            ehValido = ehValido && Nome!.Length >= 1;
-            ehValido = ehValido && Nome!.Length <= 100;
+            bool isTrue = true;
+            isTrue = isTrue && !string.IsNullOrEmpty(Nome);
+            isTrue = isTrue && Nome!.Length >= 1;
+            isTrue = isTrue && Nome!.Length <= 100;
 
             mensagemErro = string.Empty;
 
-            if (!ehValido)
-                mensagemErro = "O nome deve ter no máximo 100 caracteres.\n";
+            if (!isTrue)
+                mensagemErro = "O nome deve ter entre 1 e 100 caracteres.\n";
 
-            return ehValido;
+            return isTrue;
         }
 
         private bool ValidarEmail(out string mensagemErro)
         {
-            const string EmailRegexPattern = @"^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$";
+            const string EmailRegexPattern = @"^[\w\.-]+@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*(\.[a-zA-Z]{2,})$";
 
-            bool ehValido = true;
-            ehValido = ehValido && !string.IsNullOrEmpty(Email);
-            ehValido = ehValido && Email!.Length >= 1;
-            ehValido = ehValido && Email!.Length <= 100;
-            ehValido = ehValido && !Regex.IsMatch(Email!, EmailRegexPattern);
+            bool isTrue = true;
+            isTrue = isTrue && !string.IsNullOrEmpty(Email);
+            isTrue = isTrue && Email!.Length >= 1;
+            isTrue = isTrue && Email!.Length <= 100;
+            isTrue = isTrue && Regex.IsMatch(Email!, EmailRegexPattern);
 
             mensagemErro = string.Empty;
 
-            if(!ehValido)
+            if(!isTrue)
                 mensagemErro = "Informe um endereço de e-mail válido.";
 
-            return ehValido;
+            return isTrue;
         }
 
         private bool ValidarListaTelefones(out string mensagemErro)
         {
-            bool ehValido = true;
+            bool isTrue = true;
             StringBuilder sbMensagemErro = new StringBuilder();
 
             this.ListaTelefones!.ForEach((telefone) =>
             {
                 string mensagemErroTelefone = string.Empty;
-                ehValido = ehValido && telefone.EhValido(out mensagemErroTelefone);
+                isTrue = isTrue && telefone.IsTrue(out mensagemErroTelefone);
                 sbMensagemErro.Append(mensagemErroTelefone);
             });
 
             mensagemErro = sbMensagemErro.ToString();
 
-            return ehValido;
+            return isTrue;
         }
     }
 }

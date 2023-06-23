@@ -42,16 +42,18 @@ namespace ApiCliente.Data.Repositories
                                 Cliente.Id,
 	                            Cliente.Nome,
 	                            Cliente.Email,
-                                TipoTelefone.Id,
-	                            TipoTelefone.Tipo,
+                                Cliente.Ativo,
                                 TelefoneCliente.Id,
-	                            TelefoneCliente.Telefone
+                                TelefoneCliente.IdCliente,
+                                TelefoneCliente.IdTipoTelefone,
+	                            TelefoneCliente.Telefone,
+                                TipoTelefone.Id,
+	                            TipoTelefone.Tipo
                             FROM
 	                            Cliente
-		                            INNER JOIN TelefoneCliente ON
+		                            LEFT JOIN TelefoneCliente ON
 			                            Cliente.Id = TelefoneCliente.IdCliente
-			                            AND TelefoneCliente.Ativo = 1
-		                            INNER JOIN TipoTelefone ON
+		                            LEFT JOIN TipoTelefone ON
 			                            TelefoneCliente.IdTipoTelefone = TipoTelefone.Id
                             WHERE 
 	                            Cliente.Ativo = 1
@@ -63,7 +65,6 @@ namespace ApiCliente.Data.Repositories
             await connection.QueryAsync<ClienteModel, TelefoneClienteModel, TipoTelefoneModel, ClienteModel>(query,
                 (cliente, telefone, tipoTelefone) =>
                 {
-
                     if (!lookupCliente.TryGetValue(cliente.Id, out var clienteExistente))
                     {
                         clienteExistente = cliente;
@@ -93,16 +94,18 @@ namespace ApiCliente.Data.Repositories
                                 Cliente.Id,
 	                            Cliente.Nome,
 	                            Cliente.Email,
-                                TipoTelefone.Id,
-	                            TipoTelefone.Tipo,
+                                Cliente.Ativo,
                                 TelefoneCliente.Id,
-	                            TelefoneCliente.Telefone
+                                TelefoneCliente.IdCliente,
+                                TelefoneCliente.IdTipoTelefone,
+	                            TelefoneCliente.Telefone,
+                                TipoTelefone.Id,
+	                            TipoTelefone.Tipo
                             FROM
 	                            Cliente
-		                            INNER JOIN TelefoneCliente ON
+		                            LEFT JOIN TelefoneCliente ON
 			                            Cliente.Id = TelefoneCliente.IdCliente
-			                            AND TelefoneCliente.Ativo = 1
-		                            INNER JOIN TipoTelefone ON
+		                            LEFT JOIN TipoTelefone ON
 			                            TelefoneCliente.IdTipoTelefone = TipoTelefone.Id
                             WHERE 
 	                            Cliente.Ativo = 1
@@ -144,15 +147,17 @@ namespace ApiCliente.Data.Repositories
                                 Cliente.Id,
 	                            Cliente.Nome,
 	                            Cliente.Email,
-                                TipoTelefone.Id,
-	                            TipoTelefone.Tipo,
+                                Cliente.Ativo,
                                 TelefoneCliente.Id,
-	                            TelefoneCliente.Telefone
+                                TelefoneCliente.IdCliente,
+                                TelefoneCliente.IdTipoTelefone,
+	                            TelefoneCliente.Telefone,
+                                TipoTelefone.Id,
+	                            TipoTelefone.Tipo
                             FROM
 	                            Cliente
 		                            INNER JOIN TelefoneCliente ON
 			                            Cliente.Id = TelefoneCliente.IdCliente
-			                            AND TelefoneCliente.Ativo = 1
 		                            INNER JOIN TipoTelefone ON
 			                            TelefoneCliente.IdTipoTelefone = TipoTelefone.Id
                             WHERE
@@ -205,14 +210,8 @@ namespace ApiCliente.Data.Repositories
                     transaction.Commit();
                     return cliente.Id;
                 }
-                catch (System.Data.SqlClient.SqlException ex)
+                catch
                 {
-                    if (ex.Number == 2627 || ex.Number == 2601)
-                    {
-                        transaction.Rollback();
-                        return ex.Number;
-                    }
-
                     transaction.Rollback();
                     return 0;
                 }
@@ -290,6 +289,31 @@ namespace ApiCliente.Data.Repositories
                 try
                 {
                     var retorno = await connection.ExecuteAsync(query, new { email }, transaction: transaction) > 0;
+                    transaction.Commit();
+                    return retorno;
+                }
+                catch
+                {
+                    transaction.Rollback();
+                    return false;
+                }
+            }
+        }
+
+        public async Task<bool> Deletar(int idCliente)
+        {
+            IDbConnection connection = await _dbSession.GetConnectionAsync("DBCliente");
+            string query = @"
+                            DELETE
+        	                    Cliente
+                            WHERE
+        	                    Id = @idCliente";
+
+            using (var transaction = connection.BeginTransaction())
+            {
+                try
+                {
+                    var retorno = await connection.ExecuteAsync(query, new { idCliente }, transaction: transaction) > 0;
                     transaction.Commit();
                     return retorno;
                 }

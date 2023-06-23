@@ -101,18 +101,14 @@ namespace ApiCliente.Controllers
         {
             try
             {
-                if (!tipoTelefone.EhValido(out string mensagemErro))
+                if (!tipoTelefone.IsTrue(out string mensagemErro))
                 {
                     return BadRequest(new { erro = mensagemErro });
                 }
 
                 var retornoCadastro = await _tipoTelefoneService.Cadastrar(tipoTelefone);
 
-                if (retornoCadastro == 2627 || retornoCadastro == 2601)
-                {
-                    return BadRequest(new { erro = "Tipo telefone já existente na base" });
-                }
-                else if (retornoCadastro > 0)
+                if (retornoCadastro > 0)
                 {
                     var links = new List<Link>
                     {
@@ -148,7 +144,7 @@ namespace ApiCliente.Controllers
         {
             try
             {
-                if (!tipoTelefone.EhValido(out string mensagemErro))
+                if (!tipoTelefone.IsTrue(out string mensagemErro))
                 {
                     return BadRequest(new { erro = mensagemErro });
                 }

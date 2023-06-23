@@ -17,5 +17,6 @@ namespace ApiCliente.Data.Repositories.Interfaces
         Task<bool> Alterar(ClienteModel cliente);
         Task<bool> Desativar(int idCliente);
         Task<bool> DesativarEmail(string email);
+        Task<bool> Deletar(int idCliente);
     }
 }

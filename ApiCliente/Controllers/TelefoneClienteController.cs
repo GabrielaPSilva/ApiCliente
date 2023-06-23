@@ -122,7 +122,7 @@ namespace ApiCliente.Controllers
                 telefone.TipoTelefone = tipoTelefone;
                 telefone.IdCliente = idCliente;
 
-                if (!telefone.EhValido(out string mensagemErro))
+                if (!telefone.IsTrue(out string mensagemErro))
                 {
                     return BadRequest(new { erro = mensagemErro });
                 }
@@ -189,7 +189,7 @@ namespace ApiCliente.Controllers
                 telefone.Id = idTelefone;
                 telefone.TipoTelefone = tipoTelefone;
 
-                if (!telefone.EhValido(out string mensagemErro))
+                if (!telefone.IsTrue(out string mensagemErro))
                 {
                     return BadRequest(new { erro = mensagemErro });
                 }
@@ -251,7 +251,7 @@ namespace ApiCliente.Controllers
                 telefone.IdCliente = idCliente;
                 telefone.TipoTelefone = tipoTelefone;
 
-                if (!telefone.EhValido(out string mensagemErro))
+                if (!telefone.IsTrue(out string mensagemErro))
                 {
                     return BadRequest(new { erro = mensagemErro });
                 }
