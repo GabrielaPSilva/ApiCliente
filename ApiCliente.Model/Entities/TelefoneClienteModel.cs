@@ -13,6 +13,7 @@ namespace ApiCliente.Model.Entities
         public int Id { get; set; }
         public int IdCliente { get; set; }
         public int IdTipoTelefone { get; set; }
+        public bool Ativo { get; set; }
         public string? Telefone { get; set; }
 
         public ClienteModel? Cliente { get; set; }

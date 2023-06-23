@@ -64,16 +64,16 @@ namespace ApiCliente.Controllers
             }
         }
 
-        [HttpGet("{idTelefone}")]
-        public async Task<IActionResult> Retornar(int idTelefone)
+        [HttpGet("cliente/{idCliente}")]
+        public async Task<IActionResult> ListarIdCliente(int idCliente)
         {
             try
             {
-                TelefoneClienteModel tipoTelefone = await _telefoneService.Retornar(idTelefone);
+                List<TelefoneClienteModel> listaTelefoneCliente = await _telefoneService.ListarTelefonesCliente(idCliente);
 
-                if (tipoTelefone == null)
+                if (listaTelefoneCliente == null)
                 {
-                    return NotFound(new { erro = "Telefone não encontrado" });
+                    return NotFound(new { erro = "Lista de telefones não encontrada" });
                 }
 
                 var links = new List<Link>
@@ -81,7 +81,7 @@ namespace ApiCliente.Controllers
                     new Link
                     {
                         Rel = "self",
-                        Href = $"/api/telefonecliente/{idTelefone}",
+                        Href = $"/api/telefonecliente/cliente/{idCliente}",
                         Method = "GET"
                     },
                     new Link
@@ -92,7 +92,61 @@ namespace ApiCliente.Controllers
                     }
                 };
 
-                var retorno = new RecursoModel<TelefoneClienteModel>(tipoTelefone, links);
+                listaTelefoneCliente.ForEach(tipoTelefone =>
+                {
+                    links.Add(new Link
+                    {
+                        Rel = "related",
+                        Href = $"/api/telefonecliente/{tipoTelefone.Id}",
+                        Method = "GET"
+                    });
+                });
+
+                var retorno = new RecursoModel<List<TelefoneClienteModel>>(listaTelefoneCliente, links);
+
+                return Ok(retorno);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
+        }
+
+        [HttpGet("cliente/{idCliente}/telefone/{idTelefone}")]
+        public async Task<IActionResult> RetornarTelefones(int idTelefone, int idCliente)
+        {
+            try
+            {
+                TelefoneClienteModel telefone = await _telefoneService.RetornarTelefoneCliente(idTelefone, idCliente);
+
+                if (telefone == null)
+                {
+                    return NotFound(new { erro = "Telefone não encontrado" });
+                }
+
+                var links = new List<Link>
+                {
+                    new Link
+                    {
+                        Rel = "self",
+                        Href = $"/api/telefonecliente/cliente/{idCliente}/telefone/{idTelefone}",
+                        Method = "GET"
+                    },
+                    new Link
+                    {
+                        Rel = "list",
+                        Href = $"/api/telefonecliente/cliente/{idCliente}",
+                        Method = "GET"
+                    },
+                    new Link
+                    {
+                        Rel = "list",
+                        Href = $"/api/telefonecliente",
+                        Method = "GET"
+                    }
+                };
+
+                var retorno = new RecursoModel<TelefoneClienteModel>(telefone, links);
 
                 return Ok(retorno);
             }
@@ -164,128 +218,67 @@ namespace ApiCliente.Controllers
             }
         }
 
-        [HttpPut("{idTelefone}")]
-        public async Task<IActionResult> Alterar(int idTelefone, [FromBody] TelefoneClienteModel telefone)
-        {
-            try
-            {
-                //if (await _clienteService.Retornar(telefone.IdCliente) == null)
-                //{
-                //    return NotFound(new { erro = "Cliente não encontrado" });
-                //}
+        //[HttpPut("{idTelefone}")]
+        //public async Task<IActionResult> Alterar(int idTelefone, [FromBody] TelefoneClienteModel telefone)
+        //{
+        //    try
+        //    {
+        //        //if (await _clienteService.Retornar(telefone.IdCliente) == null)
+        //        //{
+        //        //    return NotFound(new { erro = "Cliente não encontrado" });
+        //        //}
 
-                if (await _telefoneService.Retornar(idTelefone) == null)
-                {
-                    return NotFound(new { erro = "Telefone não encontrado" });
-                }
+        //        if (await _telefoneService.RetornarTelefoneCliente(idTelefone) == null)
+        //        {
+        //            return NotFound(new { erro = "Telefone não encontrado" });
+        //        }
 
-                var tipoTelefone = await _tipoTelefoneService.Retornar(telefone.IdTipoTelefone);
+        //        var tipoTelefone = await _tipoTelefoneService.Retornar(telefone.IdTipoTelefone);
 
-                if (tipoTelefone == null)
-                {
-                    return NotFound(new { erro = "Tipo de telefone não encontrado" });
-                }
+        //        if (tipoTelefone == null)
+        //        {
+        //            return NotFound(new { erro = "Tipo de telefone não encontrado" });
+        //        }
 
-                telefone.Id = idTelefone;
-                telefone.TipoTelefone = tipoTelefone;
+        //        telefone.Id = idTelefone;
+        //        telefone.TipoTelefone = tipoTelefone;
 
-                if (!telefone.IsTrue(out string mensagemErro))
-                {
-                    return BadRequest(new { erro = mensagemErro });
-                }
+        //        if (!telefone.IsTrue(out string mensagemErro))
+        //        {
+        //            return BadRequest(new { erro = mensagemErro });
+        //        }
 
-                if (await _telefoneService.Alterar(telefone))
-                {
-                    var links = new List<Link>
-                    {
-                        new Link
-                        {
-                            Rel = "self",
-                            Href = $"/api/telefonecliente/{idTelefone}",
-                            Method = "GET"
-                        },
-                        new Link
-                        {
-                            Rel = "list",
-                            Href = $"/api/telefonecliente",
-                            Method = "GET"
-                        }
-                    };
+        //        if (await _telefoneService.Alterar(telefone))
+        //        {
+        //            var links = new List<Link>
+        //            {
+        //                new Link
+        //                {
+        //                    Rel = "self",
+        //                    Href = $"/api/telefonecliente/{idTelefone}",
+        //                    Method = "GET"
+        //                },
+        //                new Link
+        //                {
+        //                    Rel = "list",
+        //                    Href = $"/api/telefonecliente",
+        //                    Method = "GET"
+        //                }
+        //            };
 
-                    var retorno = new RecursoModel<TelefoneClienteModel>(telefone, links);
+        //            var retorno = new RecursoModel<TelefoneClienteModel>(telefone, links);
 
-                    return Ok(retorno);
-                }
+        //            return Ok(retorno);
+        //        }
 
-                return BadRequest(new { erro = "Erro ao alterar telefone" });
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
-            }
-        }
+        //        return BadRequest(new { erro = "Erro ao alterar telefone" });
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+        //    }
+        //}
 
-        [HttpPut("{idTelefone}/cliente/{idCliente}")]
-        public async Task<IActionResult> AlterarTelefoneIdCliente(int idCliente, int idTelefone, [FromBody] TelefoneClienteModel telefone)
-        {
-            try
-            {
-                //if (await (_clienteService.Retornar(idCliente) == null)
-                //{
-                //    return NotFound(new { erro = "Pessoa não encontrada" });
-                //}
-
-                if (await _telefoneService.Retornar(idTelefone) == null)
-                {
-                    return NotFound(new { erro = "Telefone não encontrado" });
-                }
-
-                var tipoTelefone = await _tipoTelefoneService.Retornar(telefone.IdTipoTelefone);
-
-                if (tipoTelefone == null)
-                {
-                    return NotFound(new { erro = "Tipo de telefone não encontrado" });
-                }
-
-                telefone.Id = idTelefone;
-                telefone.IdCliente = idCliente;
-                telefone.TipoTelefone = tipoTelefone;
-
-                if (!telefone.IsTrue(out string mensagemErro))
-                {
-                    return BadRequest(new { erro = mensagemErro });
-                }
-
-                if (await _telefoneService.Alterar(telefone))
-                {
-                    var links = new List<Link>
-                    {
-                        new Link
-                        {
-                            Rel = "self",
-                            Href = $"/api/telefonecliente/{telefone.Id}",
-                            Method = "GET"
-                        },
-                        new Link
-                        {
-                            Rel = "list",
-                            Href = $"/api/tipostelefone",
-                            Method = "GET"
-                        }
-                    };
-
-                    var retorno = new RecursoModel<TipoTelefoneModel>(tipoTelefone, links);
-
-                    return Ok(retorno);
-                }
-
-                return BadRequest(new { erro = "Erro ao alterar tipo de telefone" });
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
-            }
-        }
         //[HttpDelete("{idTipoTelefone}")]
         //public async Task<IActionResult> Desativar(int idTipoTelefone)
         //{

@@ -26,8 +26,10 @@ namespace ApiCliente.Data.Repositories
             string query = @"
 						    SELECT 
                                 TelefoneCliente.Id,
-                                TelefoneCliente.IdCliente,
+                                TelefoneCliente.IdCliente,  
+                                TelefoneCliente.IdTipoTelefone,
 	                            TelefoneCliente.Telefone,
+                                TelefoneCliente.Ativo,
                                 TipoTelefone.Id,
                                 TipoTelefone.Tipo
                             FROM
@@ -57,14 +59,16 @@ namespace ApiCliente.Data.Repositories
             return lookupTelefone.Values.ToList();
         }
 
-        public async Task<TelefoneClienteModel> RetornarId(int idTelefone)
+        public async Task<TelefoneClienteModel> RetornarTelefoneCliente(int idTelefone, int idCliente)
         {
             IDbConnection connection = await _dbSession.GetConnectionAsync("DBCliente");
             string query = @"
-						   SELECT 
+						    SELECT 
                                 TelefoneCliente.Id,
-                                TelefoneCliente.IdCliente,
+                                TelefoneCliente.IdCliente,  
+                                TelefoneCliente.IdTipoTelefone,
 	                            TelefoneCliente.Telefone,
+                                TelefoneCliente.Ativo,
                                 TipoTelefone.Id,
                                 TipoTelefone.Tipo
                             FROM
@@ -73,7 +77,8 @@ namespace ApiCliente.Data.Repositories
 			                            TelefoneCliente.IdTipoTelefone = TipoTelefone.Id
                             WHERE 
 	                            TelefoneCliente.Ativo = 1
-                                AND TelefoneCliente.Id = @idTelefone";
+                                AND TelefoneCliente.Id = @idTelefone
+                                AND TelefoneCliente.IdCliente = @idCliente";
 
             return (await connection.QueryAsync<TelefoneClienteModel, TipoTelefoneModel, TelefoneClienteModel>(
                 query,
@@ -82,8 +87,49 @@ namespace ApiCliente.Data.Repositories
                     telefone.TipoTelefone = tipoTelefone;
                     return telefone;
                 },
-                new { idTelefone },
+                new { idTelefone, idCliente },
                 splitOn: "Id")).FirstOrDefault()!;
+        }
+
+        public async Task<List<TelefoneClienteModel>> ListarTelefonesCliente(int idCliente)
+        {
+            IDbConnection connection = await _dbSession.GetConnectionAsync("DBCliente");
+            string query = @"
+						   SELECT 
+                                TelefoneCliente.Id,
+                                TelefoneCliente.IdCliente,  
+                                TelefoneCliente.IdTipoTelefone,
+	                            TelefoneCliente.Telefone,
+                                TelefoneCliente.Ativo,
+                                TipoTelefone.Id,
+                                TipoTelefone.Tipo
+                            FROM
+	                            TelefoneCliente
+		                            INNER JOIN TipoTelefone ON
+			                            TelefoneCliente.IdTipoTelefone = TipoTelefone.Id
+                            WHERE 
+	                            TelefoneCliente.Ativo = 1
+                                AND TelefoneCliente.IdCliente = @idCliente";
+
+            var lookupTelefone = new Dictionary<int, TelefoneClienteModel>();
+
+            await connection.QueryAsync<TelefoneClienteModel, TipoTelefoneModel, TelefoneClienteModel>(query,
+                (telefone, tipoTelefone) =>
+                {
+                    if (!lookupTelefone.TryGetValue(telefone.Id, out var telefoneExistente))
+                    {
+                        telefoneExistente = telefone;
+                        lookupTelefone.Add(telefone.Id, telefoneExistente);
+                    }
+
+                    telefoneExistente.TipoTelefone = tipoTelefone;
+
+                    return null!;
+                },
+                new { idCliente },
+                splitOn: "Id");
+
+            return lookupTelefone.Values.ToList();
         }
 
         public async Task<int> Cadastrar(TelefoneClienteModel telefone)
@@ -123,7 +169,7 @@ namespace ApiCliente.Data.Repositories
             IDbConnection connection = await _dbSession.GetConnectionAsync("DBCliente");
             string query = @"
 						    UPDATE
-							    Telefone
+							    TelefoneCliente
 						    SET
 							    IdCliente = @IdCliente,
                                 IdTipoTelefone = @IdTipoTelefone,
@@ -147,22 +193,22 @@ namespace ApiCliente.Data.Repositories
             }
         }
 
-        public async Task<bool> AlterarTelefoneIdCliente(int idCliente, TelefoneClienteModel telefone)
+        public async Task<bool> Desativar(int idTelefone)
         {
             IDbConnection connection = await _dbSession.GetConnectionAsync("DBCliente");
             string query = @"
-						    UPDATE
-							    Telefone
-						    SET
-                                Telefone = @Telefone
-						    WHERE
-							    IdCliente = @IdCliente";
+                            UPDATE
+        	                    TelefoneCliente
+                            SET
+        	                    Ativo = 0
+                            WHERE
+        	                    Id = @idTelefone";
 
             using (var transaction = connection.BeginTransaction())
             {
                 try
                 {
-                    var retorno = await connection.ExecuteAsync(query, telefone, transaction: transaction) > 0;
+                    var retorno = await connection.ExecuteAsync(query, new { idTelefone }, transaction: transaction) > 0;
                     transaction.Commit();
                     return retorno;
                 }
@@ -174,22 +220,22 @@ namespace ApiCliente.Data.Repositories
             }
         }
 
-        public async Task<bool> Desativar(int idTelefone)
+        public async Task<bool> Reativar(string telefone)
         {
             IDbConnection connection = await _dbSession.GetConnectionAsync("DBCliente");
             string query = @"
                             UPDATE
-        	                    Telefone
+        	                    TelefoneCliente
                             SET
-        	                    Ativo = 0
+        	                    Ativo = 1
                             WHERE
-        	                    Id = @idTelefone";
+        	                    Id = @telefone";
 
             using (var transaction = connection.BeginTransaction())
             {
                 try
                 {
-                    var retorno = await connection.ExecuteAsync(query, new { idTelefone }, transaction: transaction) > 0;
+                    var retorno = await connection.ExecuteAsync(query, new { telefone }, transaction: transaction) > 0;
                     transaction.Commit();
                     return retorno;
                 }

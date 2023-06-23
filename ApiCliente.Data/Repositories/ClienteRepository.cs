@@ -139,6 +139,59 @@ namespace ApiCliente.Data.Repositories
             return lookupCliente.Values.FirstOrDefault()!;
         }
 
+        public async Task<ClienteModel> RetornarClienteEmail(string email)
+        {
+            IDbConnection connection = await _dbSession.GetConnectionAsync("DBCliente");
+            string query = @"
+						    SELECT 
+                                Cliente.Id,
+	                            Cliente.Nome,
+	                            Cliente.Email,
+                                Cliente.Ativo,
+                                TelefoneCliente.Id,
+                                TelefoneCliente.IdCliente,
+                                TelefoneCliente.IdTipoTelefone,
+	                            TelefoneCliente.Telefone,
+                                TipoTelefone.Id,
+	                            TipoTelefone.Tipo
+                            FROM
+	                            Cliente
+		                            LEFT JOIN TelefoneCliente ON
+			                            Cliente.Id = TelefoneCliente.IdCliente
+		                            LEFT JOIN TipoTelefone ON
+			                            TelefoneCliente.IdTipoTelefone = TipoTelefone.Id
+                            WHERE 
+	                            Cliente.Ativo = 1
+                                AND Cliente.Email = @email";
+
+            var lookupCliente = new Dictionary<int, ClienteModel>();
+
+            await connection.QueryAsync<ClienteModel, TelefoneClienteModel, TipoTelefoneModel, ClienteModel>(query,
+                (cliente, telefone, tipoTelefone) =>
+                {
+
+                    if (!lookupCliente.TryGetValue(cliente.Id, out var clienteExistente))
+                    {
+                        clienteExistente = cliente;
+                        lookupCliente.Add(cliente.Id, clienteExistente);
+                    }
+
+                    clienteExistente.ListaTelefones ??= new List<TelefoneClienteModel>();
+
+                    if (telefone != null)
+                    {
+                        telefone.TipoTelefone = tipoTelefone;
+                        clienteExistente.ListaTelefones.Add(telefone);
+                    }
+
+                    return null!;
+                },
+                new { email },
+                splitOn: "Id");
+
+            return lookupCliente.Values.FirstOrDefault()!;
+        }
+
         public async Task<ClienteModel> RetornarClienteTelefone(string telefone)
         {
             IDbConnection connection = await _dbSession.GetConnectionAsync("DBCliente");
@@ -314,6 +367,33 @@ namespace ApiCliente.Data.Repositories
                 try
                 {
                     var retorno = await connection.ExecuteAsync(query, new { idCliente }, transaction: transaction) > 0;
+                    transaction.Commit();
+                    return retorno;
+                }
+                catch
+                {
+                    transaction.Rollback();
+                    return false;
+                }
+            }
+        }
+
+        public async Task<bool> Reativar(string email)
+        {
+            IDbConnection connection = await _dbSession.GetConnectionAsync("DBCliente");
+            string query = @"
+                            UPDATE
+        	                    Cliente
+                            SET
+        	                    Ativo = 0
+                            WHERE
+        	                    Email = @email";
+
+            using (var transaction = connection.BeginTransaction())
+            {
+                try
+                {
+                    var retorno = await connection.ExecuteAsync(query, new { email }, transaction: transaction) > 0;
                     transaction.Commit();
                     return retorno;
                 }

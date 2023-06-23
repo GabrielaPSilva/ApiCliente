@@ -34,6 +34,11 @@ namespace ApiCliente.Business.Services
             return await _clienteRepository.RetornarId(idCliente);
         }
 
+        public async Task<ClienteModel> RetornarClienteEmail(string email)
+        {
+            return await _clienteRepository.RetornarClienteEmail(email);
+        }
+
         public async Task<ClienteModel> RetornarClienteTelefone(string telefone)
         {
             return await _clienteRepository.RetornarClienteTelefone(telefone);

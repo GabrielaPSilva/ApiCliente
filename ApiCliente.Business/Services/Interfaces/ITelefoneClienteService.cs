@@ -10,10 +10,11 @@ namespace ApiCliente.Business.Services.Interfaces
     public interface ITelefoneClienteService
     {
         Task<List<TelefoneClienteModel>> Listar();
-        Task<TelefoneClienteModel> Retornar(int idTelefone);
+        Task<List<TelefoneClienteModel>> ListarTelefonesCliente(int idCliente);
+        Task<TelefoneClienteModel> RetornarTelefoneCliente(int idTelefone, int idCliente);
         Task<int> Cadastrar(TelefoneClienteModel telefone);
         Task<bool> Alterar(TelefoneClienteModel telefone);
-        Task<bool> AlterarTelefoneIdCliente(int idCliente, TelefoneClienteModel telefone);
         Task<bool> Desativar(int idTelefone);
+        Task<bool> Reativar(string telefone);
     }
 }

@@ -23,9 +23,14 @@ namespace ApiCliente.Business.Services
             return await _telefoneRepository.Listar();
         }
 
-        public async Task<TelefoneClienteModel> Retornar(int idTelefone)
+        public async Task<List<TelefoneClienteModel>> ListarTelefonesCliente(int idCliente)
         {
-            return await _telefoneRepository.RetornarId(idTelefone);
+            return await _telefoneRepository.ListarTelefonesCliente(idCliente);
+        }
+
+        public async Task<TelefoneClienteModel> RetornarTelefoneCliente(int idTelefone, int idCliente)
+        {
+            return await _telefoneRepository.RetornarTelefoneCliente(idTelefone, idCliente);
         }
 
         public async Task<int> Cadastrar(TelefoneClienteModel telefone)
@@ -44,17 +49,14 @@ namespace ApiCliente.Business.Services
             return await _telefoneRepository.Alterar(telefone);
         }
 
-        public async Task<bool> AlterarTelefoneIdCliente(int idCliente, TelefoneClienteModel telefone)
-        {
-            if (telefone == null)
-                return false;
-
-            return await _telefoneRepository.AlterarTelefoneIdCliente(idCliente, telefone);
-        }
-
         public async Task<bool> Desativar(int idTelefone)
         {
             return await _telefoneRepository.Desativar(idTelefone);
+        }
+
+        public async Task<bool> Reativar(string telefone)
+        {
+            return await _telefoneRepository.Reativar(telefone);
         }
     }
 }
