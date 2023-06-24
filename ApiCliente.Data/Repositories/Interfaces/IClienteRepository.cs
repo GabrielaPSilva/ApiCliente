@@ -12,6 +12,7 @@ namespace ApiCliente.Data.Repositories.Interfaces
         Task<List<ClienteModel>> Listar();
         Task<List<ClienteModel>> ListarClientesTelefones();
         Task<ClienteModel> RetornarId(int idCliente);
+        Task<ClienteModel> RetornarEmail(string email);
         Task<ClienteModel> RetornarClienteEmail(string email);
         Task<ClienteModel> RetornarClienteTelefone(string telefone);
         Task<int> Cadastrar(ClienteModel cliente);

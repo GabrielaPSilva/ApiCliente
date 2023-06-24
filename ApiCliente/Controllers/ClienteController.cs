@@ -51,13 +51,6 @@ namespace ApiCliente.Controllers
                         Href = $"/api/clientes/{cliente.Id}",
                         Method = "GET"
                     });
-
-                    //links.Add(new Link
-                    //{
-                    //    Rel = "collection",
-                    //    Href = $"/api/clientes/{pessoa.Codigo}/contatos",
-                    //    Method = "GET"
-                    //});
                 });
 
                 var retorno = new RecursoModel<List<ClienteModel>>(listaClientes, links);
@@ -106,13 +99,6 @@ namespace ApiCliente.Controllers
                         Href = $"/api/clientes/{cliente.Id}",
                         Method = "GET"
                     });
-
-                    //links.Add(new Link
-                    //{
-                    //    Rel = "collection",
-                    //    Href = $"/api/clientes/{pessoa.Codigo}/contatos",
-                    //    Method = "GET"
-                    //});
                 });
 
                 var retorno = new RecursoModel<List<ClienteModel>>(listaClientesTelefones, links);
@@ -145,12 +131,6 @@ namespace ApiCliente.Controllers
                         Href = $"/api/clientes/{idCliente}",
                         Method = "GET"
                     },
-                    //new Link
-                    //{
-                    //    Rel = "collection",
-                    //    Href = $"/api/pessoas/{codigoPessoa}/contatos",
-                    //    Method = "GET"
-                    //},
                     new Link
                     {
                         Rel = "list",
@@ -201,12 +181,6 @@ namespace ApiCliente.Controllers
                         Href = $"/api/clientes/{cliente.Id}",
                         Method = "GET"
                     },
-                    //new Link
-                    //{
-                    //    Rel = "collection",
-                    //    Href = $"/api/pessoas/{codigoPessoa}/contatos",
-                    //    Method = "GET"
-                    //},
                     new Link
                     {
                         Rel = "list",
@@ -265,12 +239,6 @@ namespace ApiCliente.Controllers
                                     Href = $"/api/clientes/{cliente.Id}",
                                     Method = "GET"
                                 },
-                                //new Link
-                                //{
-                                //    Rel = "collection",
-                                //    Href = $"/api/clientes/{pessoa.Codigo}/contatos",
-                                //    Method = "GET"
-                                //},
                                 new Link
                                 {
                                     Rel = "list",
@@ -342,12 +310,6 @@ namespace ApiCliente.Controllers
                             Href = $"/api/clientes/{cliente.Id}",
                             Method = "GET"
                         },
-                        //new Link
-                        //{
-                        //    Rel = "collection",
-                        //    Href = $"/api/clientes/{pessoa.Codigo}/contatos",
-                        //    Method = "GET"
-                        //},
                         new Link
                         {
                             Rel = "list",
@@ -442,6 +404,43 @@ namespace ApiCliente.Controllers
                 }
 
                 return BadRequest(new { erro = "Erro ao desativar cliente" });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
+        }
+
+        [HttpPut("email/{email}")]
+        public async Task<IActionResult> ReativarClienteEmail(string email)
+        {
+            try
+            {
+                ClienteModel retornarCliente = await _clienteService.RetornarEmail(email);
+
+                if (retornarCliente == null)
+                {
+                    return NotFound(new { erro = "Cliente não encontrado" });
+                }
+
+                List<TelefoneClienteModel> retornoTelefonesCliente = await _telefoneClienteService.RetornarTelefonesClientesInativos(retornarCliente.Id);
+
+                foreach (TelefoneClienteModel telefone in retornoTelefonesCliente)
+                {
+                    bool ativarTelefone = await _telefoneClienteService.Reativar(retornarCliente.Id, telefone.Telefone!);
+
+                    if (!ativarTelefone)
+                    {
+                        return BadRequest(new { erro = "Erro durante o processo de ativação dos telefones que pertencem ao cliente." });
+                    }
+                }
+
+                if (await _clienteService.Reativar(email))
+                {
+                    return NoContent();
+                }
+
+                return BadRequest(new { erro = "Erro ao reativar cliente" });
             }
             catch (Exception ex)
             {

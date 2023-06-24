@@ -34,6 +34,11 @@ namespace ApiCliente.Business.Services
             return await _clienteRepository.RetornarId(idCliente);
         }
 
+        public async Task<ClienteModel> RetornarEmail(string email)
+        {
+            return await _clienteRepository.RetornarEmail(email);
+        }
+
         public async Task<ClienteModel> RetornarClienteEmail(string email)
         {
             return await _clienteRepository.RetornarClienteEmail(email);
@@ -73,6 +78,11 @@ namespace ApiCliente.Business.Services
         public async Task<bool> Deletar(int idCliente)
         {
             return await _clienteRepository.Deletar(idCliente);
+        }
+
+        public async Task<bool> Reativar(string email)
+        {
+            return await _clienteRepository.Reativar(email);
         }
     }
 }

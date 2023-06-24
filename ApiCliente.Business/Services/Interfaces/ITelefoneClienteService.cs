@@ -12,6 +12,7 @@ namespace ApiCliente.Business.Services.Interfaces
         Task<List<TelefoneClienteModel>> Listar();
         Task<List<TelefoneClienteModel>> ListarTelefonesCliente(int idCliente);
         Task<TelefoneClienteModel> RetornarTelefoneCliente(int idTelefone, int idCliente);
+        Task<List<TelefoneClienteModel>> RetornarTelefonesClientesInativos(int idCliente);
         Task<int> Cadastrar(TelefoneClienteModel telefone);
         Task<bool> Alterar(TelefoneClienteModel telefone);
         Task<bool> Desativar(int idTelefone, int idCliente);

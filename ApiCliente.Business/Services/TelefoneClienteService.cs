@@ -33,6 +33,11 @@ namespace ApiCliente.Business.Services
             return await _telefoneRepository.RetornarTelefoneCliente(idTelefone, idCliente);
         }
 
+        public async Task<List<TelefoneClienteModel>> RetornarTelefonesClientesInativos(int idCliente)
+        {
+            return await _telefoneRepository.RetornarTelefonesClientesInativos(idCliente);
+        }
+
         public async Task<int> Cadastrar(TelefoneClienteModel telefone)
         {
             if (telefone == null)

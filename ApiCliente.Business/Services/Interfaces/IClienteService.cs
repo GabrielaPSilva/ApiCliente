@@ -12,6 +12,7 @@ namespace ApiCliente.Business.Services.Interfaces
         Task<List<ClienteModel>> Listar();
         Task<List<ClienteModel>> ListarClientesTelefones();
         Task<ClienteModel> Retornar(int idCliente);
+        Task<ClienteModel> RetornarEmail(string email);
         Task<ClienteModel> RetornarClienteEmail(string email);
         Task<ClienteModel> RetornarClienteTelefone(string telefone);
         Task<int> Cadastrar(ClienteModel cliente);
@@ -19,5 +20,6 @@ namespace ApiCliente.Business.Services.Interfaces
         Task<bool> Desativar(int idTelefone);
         Task<bool> DesativarEmail(string email);
         Task<bool> Deletar(int idCliente);
+        Task<bool> Reativar(string email);
     }
 }

@@ -132,6 +132,46 @@ namespace ApiCliente.Data.Repositories
             return lookupTelefone.Values.ToList();
         }
 
+        public async Task<List<TelefoneClienteModel>> RetornarTelefonesClientesInativos(int idCliente)
+        {
+            IDbConnection connection = await _dbSession.GetConnectionAsync("DBCliente");
+            string query = @"
+						   SELECT 
+                                TelefoneCliente.Id,
+                                TelefoneCliente.IdCliente,  
+                                TelefoneCliente.IdTipoTelefone,
+	                            TelefoneCliente.Telefone,
+                                TelefoneCliente.Ativo,
+                                TipoTelefone.Id,
+                                TipoTelefone.Tipo
+                            FROM
+	                            TelefoneCliente
+		                            INNER JOIN TipoTelefone ON
+			                            TelefoneCliente.IdTipoTelefone = TipoTelefone.Id
+                            WHERE 
+                                TelefoneCliente.IdCliente = @idCliente";
+
+            var lookupTelefone = new Dictionary<int, TelefoneClienteModel>();
+
+            await connection.QueryAsync<TelefoneClienteModel, TipoTelefoneModel, TelefoneClienteModel>(query,
+                (telefone, tipoTelefone) =>
+                {
+                    if (!lookupTelefone.TryGetValue(telefone.Id, out var telefoneExistente))
+                    {
+                        telefoneExistente = telefone;
+                        lookupTelefone.Add(telefone.Id, telefoneExistente);
+                    }
+
+                    telefoneExistente.TipoTelefone = tipoTelefone;
+
+                    return null!;
+                },
+                new { idCliente },
+                splitOn: "Id");
+
+            return lookupTelefone.Values.ToList();
+        }
+
         public async Task<int> Cadastrar(TelefoneClienteModel telefone)
         {
             IDbConnection connection = await _dbSession.GetConnectionAsync("DBCliente");
