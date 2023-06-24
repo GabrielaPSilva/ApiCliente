@@ -3,13 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.3.32819.101
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApiCliente", "ApiCliente\ApiCliente.csproj", "{F71AFACD-3118-487A-A5B9-BC18604797B2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApiCliente", "ApiCliente\ApiCliente.csproj", "{F71AFACD-3118-487A-A5B9-BC18604797B2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApiCliente.Model", "ApiCliente.Model\ApiCliente.Model.csproj", "{C3EA3A01-FE4D-4826-949A-6FEA3AD4B2C8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApiCliente.Model", "ApiCliente.Model\ApiCliente.Model.csproj", "{C3EA3A01-FE4D-4826-949A-6FEA3AD4B2C8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApiCliente.Data", "ApiCliente.Data\ApiCliente.Data.csproj", "{86831AC8-0E41-401C-9AC9-F9B685D788CE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApiCliente.Data", "ApiCliente.Data\ApiCliente.Data.csproj", "{86831AC8-0E41-401C-9AC9-F9B685D788CE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApiCliente.Business", "ApiCliente.Business\ApiCliente.Business.csproj", "{3469D218-6BA4-4AEC-BDD5-855E25C77B3D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApiCliente.Business", "ApiCliente.Business\ApiCliente.Business.csproj", "{3469D218-6BA4-4AEC-BDD5-855E25C77B3D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApiCliente.Test", "ApiCliente.Test\ApiCliente.Test.csproj", "{AF9CA710-6913-4517-81CD-6E29FD72A7EA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{3469D218-6BA4-4AEC-BDD5-855E25C77B3D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3469D218-6BA4-4AEC-BDD5-855E25C77B3D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3469D218-6BA4-4AEC-BDD5-855E25C77B3D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AF9CA710-6913-4517-81CD-6E29FD72A7EA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AF9CA710-6913-4517-81CD-6E29FD72A7EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AF9CA710-6913-4517-81CD-6E29FD72A7EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AF9CA710-6913-4517-81CD-6E29FD72A7EA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
