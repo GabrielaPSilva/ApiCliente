@@ -126,8 +126,7 @@ namespace ApiCliente.Test
             var telefoneRepositoryMock = new Mock<ITelefoneClienteRepository>();
 
             telefoneRepositoryMock
-               .Setup(x => x.Alterar(addTelefoneModel))
-               .ReturnsAsync(true);
+               .Setup(x => x.Cadastrar(addTelefoneModel));
 
             var telefoneService = new TelefoneClienteService(telefoneRepositoryMock.Object);
 
