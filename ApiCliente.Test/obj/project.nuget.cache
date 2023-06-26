@@ -1,10 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "gt+lQyyE6g/lx8BKKlpKr4QEgWBHgdqiL32wlY+CYAuPV8fRq9lXbz3lEzEHr1LTQj2w0kva3N3ifC8irJWQtA==",
+  "dgSpecHash": "4pPqsygRTp2EUL9/s8nkFdZ10qtNLSOf6h3L99jY75U2laJODPFZL3RerE1oMaTCEuHq3zeZWXXxt2hz4KuziQ==",
   "success": true,
   "projectFilePath": "C:\\Git\\ApiCliente\\ApiCliente.Test\\ApiCliente.Test.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\gabip\\.nuget\\packages\\autofixture\\4.18.0\\autofixture.4.18.0.nupkg.sha512",
+    "C:\\Users\\gabip\\.nuget\\packages\\autofixture.automoq\\4.18.0\\autofixture.automoq.4.18.0.nupkg.sha512",
     "C:\\Users\\gabip\\.nuget\\packages\\castle.core\\5.1.1\\castle.core.5.1.1.nupkg.sha512",
     "C:\\Users\\gabip\\.nuget\\packages\\coverlet.collector\\3.1.2\\coverlet.collector.3.1.2.nupkg.sha512",
     "C:\\Users\\gabip\\.nuget\\packages\\dapper\\2.0.138\\dapper.2.0.138.nupkg.sha512",

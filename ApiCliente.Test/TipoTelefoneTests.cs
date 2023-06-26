@@ -26,7 +26,10 @@ namespace ApiCliente.Test
             var idTipoTelefone = addTipoTelefoneModel.Id = 1;
 
             var tipoTelefoneRepositoryMock = new Mock<ITipoTelefoneRepository>();
-            tipoTelefoneRepositoryMock.Setup(x => x.RetornarId(idTipoTelefone)).ReturnsAsync(addTipoTelefoneModel);
+
+            tipoTelefoneRepositoryMock
+                .Setup(x => x.RetornarId(idTipoTelefone))
+                .ReturnsAsync(addTipoTelefoneModel);
 
             var tipoTelefoneService = new TipoTelefoneService(tipoTelefoneRepositoryMock.Object);
 
@@ -48,7 +51,9 @@ namespace ApiCliente.Test
 
             var tipoTelefoneRepositoryMock = new Mock<ITipoTelefoneRepository>();
 
-            tipoTelefoneRepositoryMock.Setup(x => x.Alterar(addTipoTelefoneModel)).ReturnsAsync(true);
+            tipoTelefoneRepositoryMock
+                .Setup(x => x.Alterar(addTipoTelefoneModel))
+                .ReturnsAsync(true);
 
             var tipoTelefoneService = new TipoTelefoneService(tipoTelefoneRepositoryMock.Object);
 
@@ -112,6 +117,48 @@ namespace ApiCliente.Test
 
             // Assert
             Assert.IsType<int>(resultado);
+        }
+
+        [Fact]
+        public async Task ValidTipoTelefone_DeletarIsCalled_ReturnValidAsync()
+        {
+            // Arrange
+            var idTipoTelefone = 1;
+
+            var tipoTelefoneRepositoryMock = new Mock<ITipoTelefoneRepository>();
+
+            tipoTelefoneRepositoryMock
+                .Setup(x => x.Deletar(idTipoTelefone))
+                .ReturnsAsync(true);
+
+            var tipoTelefoneService = new TipoTelefoneService(tipoTelefoneRepositoryMock.Object);
+
+            // Act
+            var resultado = await tipoTelefoneService.Deletar(idTipoTelefone);
+
+            // Assert
+            Assert.True(resultado);
+        }
+
+        [Fact]
+        public async Task ValidTipoTelefone_DeletarIsCalled_ReturnNotValidAsync()
+        {
+            // Arrange
+            var idTipoTelefone = 1;
+
+            var tipoTelefoneRepositoryMock = new Mock<ITipoTelefoneRepository>();
+
+            tipoTelefoneRepositoryMock
+                .Setup(x => x.Deletar(idTipoTelefone))
+                .ReturnsAsync(false);
+
+            var tipoTelefoneService = new TipoTelefoneService(tipoTelefoneRepositoryMock.Object);
+
+            // Act
+            var resultado = await tipoTelefoneService.Deletar(idTipoTelefone);
+
+            // Assert
+            Assert.False(resultado);
         }
     }
 }

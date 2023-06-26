@@ -19,6 +19,23 @@
           }
         }
       },
+      "AutoFixture.AutoMoq/4.18.0": {
+        "type": "package",
+        "dependencies": {
+          "AutoFixture": "4.18.0",
+          "Moq": "[4.7.0, 5.0.0)"
+        },
+        "compile": {
+          "lib/netstandard2.0/AutoFixture.AutoMoq.dll": {
+            "related": ".pdb;.xml"
+          }
+        },
+        "runtime": {
+          "lib/netstandard2.0/AutoFixture.AutoMoq.dll": {
+            "related": ".pdb;.xml"
+          }
+        }
+      },
       "Castle.Core/5.1.1": {
         "type": "package",
         "dependencies": {
@@ -2315,6 +2332,27 @@
         "lib/netstandard2.0/AutoFixture.dll",
         "lib/netstandard2.0/AutoFixture.pdb",
         "lib/netstandard2.0/AutoFixture.xml"
+      ]
+    },
+    "AutoFixture.AutoMoq/4.18.0": {
+      "sha512": "bKYr0AykPInIu4OBKoujK3w8j1N4czz+EAbX93DFG/w4mM9otvbgFT6FUlIvqfcB08gRuRSCqmHhpWa0Thgh6g==",
+      "type": "package",
+      "path": "autofixture.automoq/4.18.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "autofixture.automoq.4.18.0.nupkg.sha512",
+        "autofixture.automoq.nuspec",
+        "icon.png",
+        "lib/net452/AutoFixture.AutoMoq.dll",
+        "lib/net452/AutoFixture.AutoMoq.pdb",
+        "lib/net452/AutoFixture.AutoMoq.xml",
+        "lib/netstandard1.5/AutoFixture.AutoMoq.dll",
+        "lib/netstandard1.5/AutoFixture.AutoMoq.pdb",
+        "lib/netstandard1.5/AutoFixture.AutoMoq.xml",
+        "lib/netstandard2.0/AutoFixture.AutoMoq.dll",
+        "lib/netstandard2.0/AutoFixture.AutoMoq.pdb",
+        "lib/netstandard2.0/AutoFixture.AutoMoq.xml"
       ]
     },
     "Castle.Core/5.1.1": {
@@ -7415,6 +7453,7 @@
       "ApiCliente.Data >= 1.0.0",
       "ApiCliente.Model >= 1.0.0",
       "AutoFixture >= 4.18.0",
+      "AutoFixture.AutoMoq >= 4.18.0",
       "Microsoft.NET.Test.Sdk >= 17.1.0",
       "Moq >= 4.18.4",
       "coverlet.collector >= 3.1.2",
@@ -7481,6 +7520,10 @@
         "targetAlias": "net6.0",
         "dependencies": {
           "AutoFixture": {
+            "target": "Package",
+            "version": "[4.18.0, )"
+          },
+          "AutoFixture.AutoMoq": {
             "target": "Package",
             "version": "[4.18.0, )"
           },

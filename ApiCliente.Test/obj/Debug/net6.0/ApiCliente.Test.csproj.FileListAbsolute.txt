@@ -129,3 +129,4 @@ C:\Git\ApiCliente\ApiCliente.Test\bin\Debug\net6.0\AutoFixture.dll
 C:\Git\ApiCliente\ApiCliente.Test\bin\Debug\net6.0\Castle.Core.dll
 C:\Git\ApiCliente\ApiCliente.Test\bin\Debug\net6.0\Fare.dll
 C:\Git\ApiCliente\ApiCliente.Test\bin\Debug\net6.0\Moq.dll
+C:\Git\ApiCliente\ApiCliente.Test\bin\Debug\net6.0\AutoFixture.AutoMoq.dll

@@ -13,6 +13,7 @@
           "ApiCliente.Data": "1.0.0",
           "ApiCliente.Model": "1.0.0",
           "AutoFixture": "4.18.0",
+          "AutoFixture.AutoMoq": "4.18.0",
           "Microsoft.NET.Test.Sdk": "17.1.0",
           "Moq": "4.18.4",
           "coverlet.collector": "3.1.2",
@@ -30,6 +31,18 @@
         },
         "runtime": {
           "lib/netstandard2.0/AutoFixture.dll": {
+            "assemblyVersion": "4.18.0.0",
+            "fileVersion": "4.18.0.688"
+          }
+        }
+      },
+      "AutoFixture.AutoMoq/4.18.0": {
+        "dependencies": {
+          "AutoFixture": "4.18.0",
+          "Moq": "4.18.4"
+        },
+        "runtime": {
+          "lib/netstandard2.0/AutoFixture.AutoMoq.dll": {
             "assemblyVersion": "4.18.0.0",
             "fileVersion": "4.18.0.688"
           }
@@ -1369,6 +1382,13 @@
       "sha512": "sha512-xITUSenQsEW3RxXzcDPvxA33PGEQHxfvYjEbiai8URCcmq+osECGdLqGfHmMmcttndWgLxYCV7bRIm089fu7HA==",
       "path": "autofixture/4.18.0",
       "hashPath": "autofixture.4.18.0.nupkg.sha512"
+    },
+    "AutoFixture.AutoMoq/4.18.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-bKYr0AykPInIu4OBKoujK3w8j1N4czz+EAbX93DFG/w4mM9otvbgFT6FUlIvqfcB08gRuRSCqmHhpWa0Thgh6g==",
+      "path": "autofixture.automoq/4.18.0",
+      "hashPath": "autofixture.automoq.4.18.0.nupkg.sha512"
     },
     "Castle.Core/5.1.1": {
       "type": "package",
