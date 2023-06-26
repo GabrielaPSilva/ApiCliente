@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ApiCliente.Test
 {
-    public class ApiClienteTesteTelefoneCliente
+    public class TelefoneClienteTests
     {
         [Theory]
         [InlineData(1, 2, 3, true, "1243456789")]

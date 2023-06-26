@@ -2,7 +2,7 @@ using ApiCliente.Model.Entities;
 
 namespace ApiCliente.Test
 {
-    public class ApiClienteTesteCliente
+    public class ClienteTests
     {
 
         [Theory]
