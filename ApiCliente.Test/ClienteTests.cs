@@ -1,37 +1,44 @@
+using ApiCliente.Business.Services;
+using ApiCliente.Data.Repositories.Interfaces;
 using ApiCliente.Model.Entities;
+using AutoFixture.AutoMoq;
+using AutoFixture;
+using Moq;
 
 namespace ApiCliente.Test
 {
     public class ClienteTests
     {
+        private readonly IFixture _fixture;
 
-        [Theory]
-        [InlineData(1, "João", "joao@gmail.com", true)]
-        [InlineData(2, "Maria", "maria@hotmail.com", true)]
-        [InlineData(3, "José", "jose@yahoo.com.br", true)]
+        public ClienteTests()
+        {
+            _fixture = new Fixture().Customize(new AutoMoqCustomization());
+            _fixture.Behaviors.Remove(new ThrowingRecursionBehavior());
+            _fixture.Behaviors.Add(new OmitOnRecursionBehavior());
+        }
 
-        public void TestCliente(int id, string nome, string email, bool ativo)
+        [Fact]
+        public async Task ValidCliente_RetornarIsCalled_ReturnValidIdAsync()
         {
             // Arrange
-            var modelo = new ClienteModel
-            {
-                Id = id,
-                Nome = nome,
-                Email = email,
-                Ativo = ativo
-            };
+            var addClienteModel = _fixture.Create<ClienteModel>();
+
+            var idCliente = addClienteModel.Id = 1;
+
+            var clienteRepositoryMock = new Mock<IClienteRepository>();
+
+            clienteRepositoryMock
+                .Setup(x => x.RetornarId(idCliente))
+                .ReturnsAsync(addClienteModel);
+
+            var clienteService = new ClienteService(clienteRepositoryMock.Object);
 
             // Act
-            var idObtido = modelo.Id;
-            var nomeObtido = modelo.Nome;
-            var emailObtido = modelo.Email;
-            var ativoObtido = modelo.Ativo;
+            var resultado = await clienteService.Retornar(idCliente);
 
             // Assert
-            Assert.Equal(id, idObtido);
-            Assert.Equal(nome, nomeObtido);
-            Assert.Equal(email, emailObtido);
-            Assert.Equal(ativo, ativoObtido);
+            Assert.Equal(addClienteModel, resultado);
         }
     }
 }

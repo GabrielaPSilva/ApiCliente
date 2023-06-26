@@ -27,14 +27,10 @@ namespace ApiCliente.Test
         public async Task ValidTelefone_RetornarTelefonesClienteIsCalled_ReturnValidIdAsync()
         {
             // Arrange
-            var idTelefone = 1;
-            var idCliente = 1;
+            var addTelefoneModel = _fixture.Create<TelefoneClienteModel>();
 
-            var addTelefoneModel = new TelefoneClienteModel
-            {
-                Id = idTelefone,
-                IdCliente = idCliente,
-            };
+            var idTelefone = addTelefoneModel.Id = 1;
+            var idCliente = addTelefoneModel.IdCliente = 1;
 
             var telefoneRepositoryMock = new Mock<ITelefoneClienteRepository>();
             telefoneRepositoryMock
