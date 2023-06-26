@@ -131,96 +131,92 @@ namespace ApiCliente.Test
         }
 
         [Fact]
-        public async Task ValidTelefone_DesativarIsCalled_ReturnValidAsync()
+        public async Task ValidCliente_DesativarIsCalled_ReturnValidAsync()
         {
             // Arrange
-            var addTelefoneModel = _fixture.Create<TelefoneClienteModel>();
+            var addClienteModel = _fixture.Create<ClienteModel>();
 
-            var idTelefone = addTelefoneModel.Id = 1;
-            var idCliente = addTelefoneModel.IdCliente = 1;
+            var idCliente = addClienteModel.Id = 1;
 
-            var telefoneRepositoryMock = new Mock<ITelefoneClienteRepository>();
+            var clienteRepositoryMock = new Mock<IClienteRepository>();
 
-            telefoneRepositoryMock
-                .Setup(x => x.Desativar(idTelefone, idCliente))
+            clienteRepositoryMock
+                .Setup(x => x.Desativar(idCliente))
                 .ReturnsAsync(true);
 
-            var telefoneService = new TelefoneClienteService(telefoneRepositoryMock.Object);
+            var clienteService = new ClienteService(clienteRepositoryMock.Object);
 
             // Act
-            var resultado = await telefoneService.Desativar(idTelefone, idCliente);
+            var resultado = await clienteService.Desativar(idCliente);
 
             // Assert
             Assert.True(resultado);
         }
 
         [Fact]
-        public async Task ValidTelefone_DesativarIsCalled_ReturnNotValidAsync()
+        public async Task ValidCliente_DesativarIsCalled_ReturnNotValidAsync()
         {
             // Arrange
-            var addTelefoneModel = _fixture.Create<TelefoneClienteModel>();
+            var addClienteModel = _fixture.Create<ClienteModel>();
 
-            var idTelefone = addTelefoneModel.Id = 1;
-            var idCliente = addTelefoneModel.IdCliente = 1;
+            var idCliente = addClienteModel.Id = 1;
 
-            var telefoneRepositoryMock = new Mock<ITelefoneClienteRepository>();
+            var clienteRepositoryMock = new Mock<IClienteRepository>();
 
-            telefoneRepositoryMock
-                .Setup(x => x.Desativar(idTelefone, idCliente))
+            clienteRepositoryMock
+                .Setup(x => x.Desativar(idCliente))
                 .ReturnsAsync(false);
 
-            var telefoneService = new TelefoneClienteService(telefoneRepositoryMock.Object);
+            var clienteService = new ClienteService(clienteRepositoryMock.Object);
 
             // Act
-            var resultado = await telefoneService.Desativar(idTelefone, idCliente);
+            var resultado = await clienteService.Desativar(idCliente);
 
             // Assert
             Assert.False(resultado);
         }
 
         [Fact]
-        public async Task ValidTelefone_AtivarIsCalled_ReturnValidAsync()
+        public async Task ValidCliente_AtivarIsCalled_ReturnValidAsync()
         {
             // Arrange
-            var addTelefoneModel = _fixture.Create<TelefoneClienteModel>();
+            var addClienteModel = _fixture.Create<ClienteModel>();
 
-            var idCliente = addTelefoneModel.IdCliente = 1;
-            var telefone = addTelefoneModel.Telefone = "11987654532";
+            var email = addClienteModel.Email = "teste@gmail.com";
 
-            var telefoneRepositoryMock = new Mock<ITelefoneClienteRepository>();
+            var clienteRepositoryMock = new Mock<IClienteRepository>();
 
-            telefoneRepositoryMock
-                .Setup(x => x.Reativar(idCliente, telefone))
+            clienteRepositoryMock
+                .Setup(x => x.Reativar(email))
                 .ReturnsAsync(true);
 
-            var telefoneService = new TelefoneClienteService(telefoneRepositoryMock.Object);
+            var clienteService = new ClienteService(clienteRepositoryMock.Object);
 
             // Act
-            var resultado = await telefoneService.Reativar(idCliente, telefone);
+            var resultado = await clienteService.Reativar(email);
 
             // Assert
             Assert.True(resultado);
         }
 
         [Fact]
-        public async Task ValidTelefone_AtivarIsCalled_ReturnNotValidAsync()
+        public async Task ValidCliente_AtivarIsCalled_ReturnNotValidAsync()
         {
             // Arrange
-            var addTelefoneModel = _fixture.Create<TelefoneClienteModel>();
+            var addClienteModel = _fixture.Create<ClienteModel>();
 
-            var idCliente = addTelefoneModel.IdCliente = 1;
-            var telefone = addTelefoneModel.Telefone = "11987654532";
+            var email = addClienteModel.Email = "teste@gmail.com";
 
-            var telefoneRepositoryMock = new Mock<ITelefoneClienteRepository>();
+            var clienteRepositoryMock = new Mock<IClienteRepository>();
 
-            telefoneRepositoryMock
-                .Setup(x => x.Reativar(idCliente, telefone))
+            clienteRepositoryMock
+                .Setup(x => x.Reativar(email))
                 .ReturnsAsync(false);
 
-            var telefoneService = new TelefoneClienteService(telefoneRepositoryMock.Object);
+            var clienteService = new ClienteService(clienteRepositoryMock.Object);
 
             // Act
-            var resultado = await telefoneService.Reativar(idCliente, telefone);
+            var resultado = await clienteService.Reativar(email);
 
             // Assert
             Assert.False(resultado);
