@@ -40,5 +40,32 @@ namespace ApiCliente.Test
             // Assert
             Assert.Equal(addClienteModel, resultado);
         }
+
+        [Fact]
+        public async Task ValidCliente_RetornarEmailIsCalled_ReturnValidEmailAsync()
+        {
+            // Arrange
+            var addClienteModel = _fixture.Create<ClienteModel>();
+
+            var id = addClienteModel.Id = 1;
+            var nome = addClienteModel.Nome = "Teste";
+            var email = addClienteModel.Email = "teste@gmail.com";
+            var ativo = addClienteModel.Ativo = true;
+            var listaTelefones = addClienteModel.ListaTelefones = new List<TelefoneClienteModel>();
+
+            var clienteRepositoryMock = new Mock<IClienteRepository>();
+
+            clienteRepositoryMock
+                .Setup(x => x.RetornarEmail(email))
+                .ReturnsAsync(addClienteModel);
+
+            var clienteService = new ClienteService(clienteRepositoryMock.Object);
+
+            // Act
+            var resultado = await clienteService.RetornarClienteEmail(email);
+
+            // Assert
+            Assert.Equal(addClienteModel, resultado);
+        }
     }
 }

@@ -198,50 +198,14 @@ namespace ApiCliente.Data.Repositories
 						    SELECT 
                                 Cliente.Id,
 	                            Cliente.Nome,
-	                            Cliente.Email,
-                                Cliente.Ativo,
-                                TelefoneCliente.Id,
-                                TelefoneCliente.IdCliente,
-                                TelefoneCliente.IdTipoTelefone,
-	                            TelefoneCliente.Telefone,
-                                TipoTelefone.Id,
-	                            TipoTelefone.Tipo
+	                            Cliente.Email
                             FROM
 	                            Cliente
-		                            LEFT JOIN TelefoneCliente ON
-			                            Cliente.Id = TelefoneCliente.IdCliente
-		                            LEFT JOIN TipoTelefone ON
-			                            TelefoneCliente.IdTipoTelefone = TipoTelefone.Id
                             WHERE 
 	                            Cliente.Ativo = 1
                                 AND Cliente.Email = @email";
 
-            var lookupCliente = new Dictionary<int, ClienteModel>();
-
-            await connection.QueryAsync<ClienteModel, TelefoneClienteModel, TipoTelefoneModel, ClienteModel>(query,
-                (cliente, telefone, tipoTelefone) =>
-                {
-
-                    if (!lookupCliente.TryGetValue(cliente.Id, out var clienteExistente))
-                    {
-                        clienteExistente = cliente;
-                        lookupCliente.Add(cliente.Id, clienteExistente);
-                    }
-
-                    clienteExistente.ListaTelefones ??= new List<TelefoneClienteModel>();
-
-                    if (telefone != null)
-                    {
-                        telefone.TipoTelefone = tipoTelefone;
-                        clienteExistente.ListaTelefones.Add(telefone);
-                    }
-
-                    return null!;
-                },
-                new { email },
-                splitOn: "Id");
-
-            return lookupCliente.Values.FirstOrDefault()!;
+            return await connection.QueryFirstOrDefaultAsync<ClienteModel>(query, new { email });
         }
 
         public async Task<ClienteModel> RetornarClienteTelefone(string telefone)
